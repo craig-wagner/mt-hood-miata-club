@@ -1,0 +1,127 @@
+﻿@model NewsletterUploadViewModel
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "Upload";
+}
+<script type="text/javascript">
+    $(document).ready(init);
+
+    function init() {
+        $('#uploadOnly').click(function () {
+            $("form").attr('action', '@Url.Action( "Upload" )')
+                 .submit();
+            return false; // prevent default submission
+        });
+
+        $('#uploadAndEmail').click(function () {
+            $("form").attr('action', '@Url.Action( "UploadAndEmail" )')
+                 .submit();
+            return false; // prevent default submission
+        });
+
+        $("#Year").focus();
+    }
+</script>
+@using( Html.BeginForm( "Upload", "Newsletter", FormMethod.Post, new { enctype = "multipart/form-data" } ) )
+{ 
+    <table width="100%">
+        <tr>
+            <td width="25%">
+                @Html.LabelFor( model => model.Year, "Year:" )
+            </td>
+            <td width="75%">
+                @{
+    int currYear = DateTime.Now.Year;
+
+    IEnumerable<SelectListItem> years = new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = (currYear - 1).ToString() },
+                        new SelectListItem { Text = currYear.ToString(), Selected = true },
+                        new SelectListItem { Text = (currYear + 1).ToString() },
+                    };
+                }
+                @Html.DropDownListFor( model => model.Year, years, new { style = "width: 75px" } )
+            </td>
+        </tr>
+        <tr>
+            <td width="25%">
+                @Html.LabelFor( model => model.Month, "Month:" )
+            </td>
+            <td width="75%">
+                @{
+    int currMonth = DateTime.Now.Month;
+    ICollection<SelectListItem> months = new List<SelectListItem>();
+
+    for( int i = 1; i <= 12; i++ )
+    {
+        months.Add( new SelectListItem
+        {
+            Text = i.ToString( "00" ),
+            Selected = i == currMonth
+        } );
+    }
+                }
+                @Html.DropDownListFor( model => model.Month, months, new { style = "width: 75px" } )
+            </td>
+        </tr>
+        <tr>
+            <td width="25%">
+                Select newsletter PDF to upload:
+            </td>
+            <td width="75%" valign="top">
+                <input id="file" name="file" type="file" style="width: 300px" /><br />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <button type="submit" id="uploadOnly">
+                    Upload Only</button>
+                <button type="submit" id="uploadAndEmail">
+                    Upload &amp; Email</button>
+                <button type="button" onclick="window.location.href='/Board/Index'">
+                    Cancel</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center" class="attention">
+                @{
+    switch( (UploadResult)ViewBag.UploadResult )
+    {
+        case UploadResult.UploadSuccess:
+                    <text>Newsletter uploaded successfully.</text>
+            break;
+
+        case UploadResult.UploadAndEmailSuccess:
+                    <text>Newsletter uploaded and emailed successfully.</text>
+            break;
+
+        case UploadResult.FileExists:
+                    <text>Newsletter already exists.</text>
+            break;
+
+        case UploadResult.NoFileUploaded:
+                    <text>No file uploaded.</text>
+            break;
+
+        case UploadResult.OnlyPdf:
+                    <text>Only PDF files mey be uploaded.</text>
+            break;
+    }
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="attention">Please choose carefully!</span><br />
+                Upload Only: Uploads the newsletter to the web site.<br />
+                Upload &amp; Email: Uploads the newsletter to the web site and emails it to all
+                members.
+            </td>
+        </tr>
+    </table>
+}

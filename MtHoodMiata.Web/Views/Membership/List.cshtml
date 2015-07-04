@@ -1,0 +1,140 @@
+﻿@model IEnumerable<MtHoodMiata.Web.Models.Membership>
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Membership Maintenance";
+}
+<script type="text/javascript">
+    $(document).ready(init);
+
+    function init() {
+        $("#accordion").accordion({
+            collapsible: true,
+            autoHeight: true,
+            active: @(ViewBag.InSearchMode ? "0" : "false")
+        });
+
+        var $dialog = $("#dialog-confirm").dialog({
+            title: "Delete Membership",
+            autoOpen: false,
+            resizable: false,
+            width: 400,
+            modal: true
+        });
+
+        $(".link-delete").click(function (e) {
+            e.preventDefault();
+            var targetUrl = $(this).attr("href");
+
+            $("#dialog-confirm").dialog({
+                buttons: {
+                    "Yes": function () {
+                        window.location.href = targetUrl;
+                    },
+                    "No": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $dialog.dialog("open");
+            $(".ui-dialog-buttonpane button").focus();
+        });
+    }
+</script>
+<style type="text/css">
+    .memberColumn
+    {
+        vertical-align: top;
+        width: 35%;
+    }
+    .dueDateColumn
+    {
+        vertical-align: top;
+        width: 15%;
+    }
+    .active
+    {
+        color: Lime;
+    }
+    .inactive
+    {
+        color: Red;
+    }
+    .action
+    {
+        vertical-align: top;
+        text-align: center;
+        width: 8%;
+    }
+</style>
+<div id="dialog-confirm">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        This membership and related cars will be permanently deleted and cannot be recovered.
+        Are you sure?</p>
+</div>
+<div id="accordion">
+    <h3>
+        <a href="#">Search</a></h3>
+    <div>
+        Enter a search string in the field below and click Search to find all memberships
+        with the value entered in either member's first or last name or email address.<br />
+        <br />
+        @using( Html.BeginForm() )
+        {
+            @Html.Label( "searchString", "Search Criteria:" )
+            <text>&nbsp;</text>
+            @Html.TextBox( "searchString" )
+            <button type="submit">
+                Search</button>
+            <button type="button" onclick="window.location.href='/Membership/List'">
+                Clear</button>
+        }
+    </div>
+</div>
+<br />
+@{
+    var grid = new WebGrid( Model,
+        defaultSort: "Member1FullName",
+        rowsPerPage: 20,
+        canSort: !ViewBag.InSearchMode );
+    @grid.GetHtml(
+        tableStyle: "border",
+        htmlAttributes: new { width = "100%" },
+        mode: WebGridPagerModes.All,
+        columns: grid.Columns(
+            grid.Column( "Member1FullName", "Primary Member",
+                style: "memberColumn",
+                format: @<text><span class="@(item.IsActive ? "" : "inactive")">@item.Member1FullName</span></text> ),
+            grid.Column( "Member2FullName", "Significant Other",
+                style: "memberColumn",
+                format: @<text><span class="@(item.IsActive ? "" : "inactive")">@item.Member2FullName</span></text> ),
+            grid.Column( "MembershipDueDate", "Due Date",
+                style: "dueDateColumn",
+                format: @<text><span class="@(item.IsActive ? "" : "inactive")">@item.MembershipDueDate.ToString( "yyyy/MM/dd" )</span></text> ),
+            grid.Column( header: String.Empty,
+                style: "action",
+                format: @<text>@Html.ActionLink( "Delete", "Delete", new { id = item.MembershipId }, new { @class = "link-delete" } )</text> ),
+            grid.Column( header: String.Empty,
+                style: "action",
+                format: @<text>@Html.ActionLink( "Edit", "AdminEdit", new { id = item.MembershipId } )</text> ) ) );
+}
+@{
+    string sortColumn = String.IsNullOrWhiteSpace( grid.SortColumn ) ? "Member1FullName" : grid.SortColumn;
+}
+<script type="text/javascript">
+    $('thead > tr > th > a[href*="sort=@sortColumn"]')
+        .parent()
+        .append('&nbsp;')
+        .append('@(grid.SortDirection == SortDirection.Ascending ? Html.Raw( "<img src=\"/images/sort-ascending.png\" />" ) : Html.Raw( "<img src=\"/images/sort-descending.png\" />" ))');
+    $('tfoot > tr > td')
+        .first()
+        .attr('colspan', 4);
+    $('tfoot > tr')
+        .append('<td class="action">@Html.ActionLink( "Add", "Create" )</td>');
+    $('thead > tr > th')
+        .last()
+        .css("font-weight", "normal")
+        .css("text-align", "center")
+        .append('@Html.ActionLink( "Add", "Create" )');
+</script>

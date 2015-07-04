@@ -1,0 +1,10 @@
+﻿@model MeetingInfo
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Edit Meeting";
+}
+@using( Html.BeginForm() )
+{
+    @Html.ValidationSummary()
+    @Html.EditorForModel()
+}

@@ -1,0 +1,14 @@
+﻿@model AddEditCarViewModel
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Add Car";
+}
+
+<div class="sectionHeader">
+    Adding Car for @Model.MemberName
+</div>
+@using( Html.BeginForm() )
+{ 
+    @Html.HiddenFor( model => model.MembershipId )
+    @Html.EditorForModel()
+}

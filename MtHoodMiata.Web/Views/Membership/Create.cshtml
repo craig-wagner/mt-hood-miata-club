@@ -1,0 +1,39 @@
+﻿@model MtHoodMiata.Web.Models.Membership
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Add Membership";
+}
+<script type="text/javascript">
+    $(document).ready(init);
+
+    function init() {
+        $("#Member1FirstName").keyup("1", nameChanged);
+        $("#Member1LastName").keyup("1", nameChanged);
+        $("#Member2FirstName").keyup("2", nameChanged);
+        $("#Member2LastName").keyup("2", nameChanged);
+
+        $(".datePicker").datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+
+        $("#Member1FirstName").focus();
+    }
+
+    function nameChanged(e) {
+        var firstName = "#Member" + e.data + "FirstName";
+        var lastName = "#Member" + e.data + "LastName";
+        var username = "#Member" + e.data + "Username";
+        var password = "#Member" + e.data + "Password";
+
+        if ($(firstName).val().length > 0 || $(lastName).val().length > 0) {
+            $(username).val($(firstName).val().toLowerCase() + "." + $(lastName).val().toLowerCase());
+            $(password).val("@Constants.DefaultPassword");
+        }
+        else {
+            $(username).val("");
+            $(password).val("");
+        }
+    }
+</script>
+@Html.EditorForModel()

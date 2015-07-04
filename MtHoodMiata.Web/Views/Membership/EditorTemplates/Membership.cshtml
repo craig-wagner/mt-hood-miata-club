@@ -1,0 +1,279 @@
+﻿@model MtHoodMiata.Web.Models.Membership
+@using( Html.BeginForm() )
+{ 
+    @Html.HiddenFor( model => model.MembershipId )
+
+    @Html.ValidationSummary( "Please correct the following errors." );
+                             
+    <table cellspacing="2" cellpadding="2" width="100%" border="0">
+        <tr>
+            <td class="sectionHeader" colspan="2">
+                Primary Member
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 15%">
+                @Html.LabelFor( model => model.Member1FirstName ):
+            </td>
+            <td style="width: 85%">
+                @Html.TextBoxFor( model => model.Member1FirstName, new { @class = "longTextField", maxlength = "50" } )*
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Member1LastName ):
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.Member1LastName, new { @class = "longTextField", maxlength = "50" } )*
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Member1Username ):
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.Member1Username, new { @class = "longTextField", maxlength = "50" } )*
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Member1Password ):
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.Member1Password, new { @class = "longTextField", maxlength = "50" } )*
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Member1Email ):
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.Member1Email, new { @class = "longTextField", maxlength = "50" } )*
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Member1CellPhone ):
+            </td>
+            <td style="width: 75%">
+                @Html.EditorFor( model => model.Member1CellPhone, "Phone" )
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Member1WorkPhone ):
+            </td>
+            <td style="width: 75%">
+                @Html.EditorFor( model => model.Member1WorkPhone, "Phone" )
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Member1Dob ):
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.Member1Dob, new { @class = "shortTextField", maxlength = "5" } )
+                &nbsp;<span class="small">mmdd</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.IsMember1BoardMember )?
+            </td>
+            <td style="width: 75%">
+                @Html.EditorFor( model => model.IsMember1BoardMember )
+            </td>
+        </tr>
+        <tr>
+            <td class="sectionHeader" colspan="2">
+                Significant Other
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Member2FirstName ):
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.Member2FirstName, new { @class = "longTextField", maxlength = "50" } )
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Member2LastName ):
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.Member2LastName, new { @class = "longTextField", maxlength = "50" } )
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Member2Username ):
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.Member2Username, new { @class = "longTextField", maxlength = "50" } )
+                <br />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Member2Password ):
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.Member2Password, new { @class = "longTextField", maxlength = "50" } )
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Member2Email ):
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.Member2Email, new { @class = "longTextField", maxlength = "50" } )
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Member2CellPhone ):
+            </td>
+            <td style="width: 75%">
+                @Html.EditorFor( model => model.Member2CellPhone, "Phone" )
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Member2WorkPhone ):
+            </td>
+            <td style="width: 75%">
+                @Html.EditorFor( model => model.Member2WorkPhone, "Phone" )
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Member2Dob ):
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.Member2Dob, new { @class = "shortTextField", maxlength = "5" } )
+                &nbsp;<span class="small">mmdd</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.IsMember2BoardMember )?
+            </td>
+            <td style="width: 75%">
+                @Html.EditorFor( model => model.IsMember2BoardMember )
+            </td>
+        </tr>
+        <tr>
+            <td class="sectionHeader" colspan="2">
+                General Information
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.AddressLine1 ):
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.AddressLine1, new { @class = "longTextField", maxlength = "50" } )*
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                &nbsp;
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.AddressLine2, new { @class = "longTextField", maxlength = "50" } )
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.City ):
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.City, new { @class = "longTextField", maxlength = "50" } )*
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.State ):
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.State, new { @class = "shortTextField", maxlength = "2" } )*
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.Zip ):
+            </td>
+            <td style="width: 75%">
+                @Html.TextBoxFor( model => model.Zip, new { @class = "shortTextField", maxlength = "10" } )*
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.HomePhone ):
+            </td>
+            <td style="width: 75%">
+                @Html.EditorFor( model => model.HomePhone, "Phone" )
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.AnniversaryDate ):
+            </td>
+            <td valign="top" style="width: 75%">
+                @Html.TextBoxFor( model => model.AnniversaryDate, new { @class = "shortTextField", maxlength = "5" } )
+                &nbsp;<span class="small">mmdd</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="sectionHeader" colspan="2">
+                Preferences
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.NewsletterPreference ):
+            </td>
+            <td style="width: 75%">
+                @{
+                IEnumerable<SelectListItem> deliveryPreferences = new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "E-Mail", Value = "E" },
+                    new SelectListItem { Text = "U.S. Mail", Value = "U" },
+                    new SelectListItem { Text = "Both", Value = "B" }
+                };
+                }
+                @Html.DropDownListFor( model => model.NewsletterPreference, deliveryPreferences )
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.ShowInRoster )?
+            </td>
+            <td style="width: 75%">
+                @Html.EditorFor( model => model.ShowInRoster )
+            </td>
+        </tr>
+        <tr>
+            <td class="sectionHeader" colspan="2">
+                Membership
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 25%">
+                @Html.LabelFor( model => model.MembershipDueDate ):
+            </td>
+            <td style="width: 75%">
+                @Html.EditorFor( model => model.MembershipDueDate )*
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">
+                    Save</button>
+                <button type="button" onclick="window.location.href='/Membership/List'">
+                    Cancel</button>
+            </td>
+        </tr>
+    </table>
+}

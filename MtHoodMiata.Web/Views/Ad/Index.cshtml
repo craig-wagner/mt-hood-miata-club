@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ClassifiedAd>
+@{
+    ViewBag.Menu = "_MainMenu";
+    ViewBag.Title = "MHMC: Classified Ads";
+}
+@section MenuFooter{
+    <p class="note">
+        Note: The Mt. Hood Miata Club is providing a service but we do not represent the
+        buyer or the seller. If you are unsure of the reputation of the seller you should
+        buy with caution.</p>
+}
+<table width="100%" border="0" cellspacing="4" cellpadding="2">
+    <tr valign="top">
+        <td width="11%" align="left">
+            <img src="/images/Signs/no_trucks.gif" width="75" height="75" alt="No Trucks" />
+        </td>
+        <td width="89%">
+            <p>
+                <strong>Current club members</strong> may post classified ads on this site through
+                the Members Only area. Please visit the <a href="/Membership/Information">Join Us</a>
+                page for information on becoming a member.</p>
+            <p>
+                Another option for those looking to buy or sell a Miata is <a target="_blank" href="http://www.buymymiata.com">
+                    BuyMyMiata.com</a>.</p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            &nbsp;
+        </td>
+    </tr>
+</table>
+@if( Model.Count() > 0 )
+{
+    string prevAdType = String.Empty;
+    
+    <table width="100%">
+        @foreach( ClassifiedAd ad in Model )
+        {
+            string currAdType = ad.ClassifiedAdType.Name;
+
+            if( currAdType != prevAdType )
+            {
+                prevAdType = currAdType;
+            <tr>
+                <td align="center">
+                    <span class="sectionHeader">@currAdType</span>
+                </td>
+            </tr>
+            }
+            
+            <tr>
+                <td>@ad.AdText&nbsp;<span class="small">@ad.AdPlacedDttm.ToString( "M/d/yyyy" )</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>
+        There are no currently active ads available. Everyone is having too much fun driving
+        their cars, they don't want to sell them.</p>
+}

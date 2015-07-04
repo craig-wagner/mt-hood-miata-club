@@ -1,0 +1,9 @@
+﻿@model int
+@{
+    var htmlTemplate = "<img src=\"/images/odometer/{0}.gif\" style=\"border-width: 0px;height: 20px;width: 15px;\" alt=\"\" />";
+    string theNumber = String.Format( "{0:00000}", Model );
+}
+@foreach( char theChar in theNumber.ToCharArray() )
+{ 
+    @Html.Raw( String.Format( htmlTemplate, theChar ) )
+}

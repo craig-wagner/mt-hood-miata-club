@@ -1,0 +1,162 @@
+﻿@model MembershipApplicationViewModel
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <title>MHMC: Print Application</title>
+    <style>
+        table
+        {
+            font-size: 75%;
+            font-family: Arial, sans-serif;
+        }
+        th
+        {
+            font-size: 100%;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            text-align: left;
+        }
+        td
+        {
+            font-family: Arial, sans-serif;
+            font-size: 100%;
+        }
+    </style>
+</head>
+<body>
+    <table width="500" cellpadding="2">
+        <tr>
+            <th colspan="2">
+                Mt. Hood Miata Club<br />
+                Membership Application
+            </th>
+        </tr>
+        <tr>
+            <th align="left" width="50%">
+                Member
+            </th>
+            <th align="left" width="50%">
+                Significant Other
+            </th>
+        </tr>
+        <tr>
+            <td width="50%" valign="top">
+                @Model.Member1FirstName @Model.Member1LastName<br />
+                @Model.Member1Email<br />
+                Cell: @Model.Member1CellPhone<br />
+                Work: @Model.Member1WorkPhone<br />
+                Birthdate: @Model.Member1Dob
+            </td>
+            <td width="50%" valign="top">
+                @Model.Member2FirstName @Model.Member2LastName<br />
+                @Model.Member2Email<br />
+                Cell: @Model.Member2CellPhone<br />
+                Work: @Model.Member2WorkPhone<br />
+                Birthdate: @Model.Member2Dob
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Anniversary: @Model.WeddingAnniversaryDate
+            </td>
+        </tr>
+        <tr>
+            <th align="left">
+                Address
+            </th>
+            <th align="left">
+                Phone
+            </th>
+        </tr>
+        <tr>
+            <td width="50%" valign="top">
+                @Model.AddressLine1<br />
+                @if( !String.IsNullOrWhiteSpace( Model.AddressLine2 ) )
+                {
+                    @Model.AddressLine2<br />
+                }
+                @Model.City, @Model.State&nbsp; @Model.Zip
+            </td>
+            <td width="50%" valign="top">
+                Home Phone: @Model.HomePhone<br />
+            </td>
+        </tr>
+        @if( !String.IsNullOrWhiteSpace( Model.Car1.Color ) ||
+            !String.IsNullOrWhiteSpace( Model.Car2.Color ) ||
+            !String.IsNullOrWhiteSpace( Model.Car3.Color ) )
+        {
+            <tr>
+                <th colspan="2" align="left">
+                    Miatas
+                </th>
+            </tr>
+        }
+        @if( !String.IsNullOrWhiteSpace( Model.Car1.Color ) )
+        {
+            <tr>
+                <td colspan="2">
+                    @Model.Car1.Year @Model.Car1.Color<br />
+                    Plate #: @Model.Car1.LicensePlate<br />
+                    Nickname: @Model.Car1.Nickname<br />
+                    Modifications: @Model.Car1.Modifications
+                </td>
+            </tr>
+        }
+        @if( !String.IsNullOrWhiteSpace( Model.Car2.Color ) )
+        {
+            <tr>
+                <td colspan="2">
+                    @Model.Car2.Year @Model.Car2.Color<br />
+                    Plate #: @Model.Car2.LicensePlate<br />
+                    Nickname: @Model.Car2.Nickname<br />
+                    Modifications: @Model.Car2.Modifications
+                </td>
+            </tr>
+        }
+        @if( !String.IsNullOrWhiteSpace( Model.Car3.Color ) )
+        {
+
+            <tr>
+                <td colspan="2">
+                    @Model.Car3.Year @Model.Car3.Color<br />
+                    Plate #: @Model.Car3.LicensePlate<br />
+                    Nickname: @Model.Car3.Nickname<br />
+                    Modifications: @Model.Car3.Modifications
+                </td>
+            </tr>
+        }
+        @if( !String.IsNullOrWhiteSpace( Model.Comments ) )
+        { 
+            <tr>
+                <th colspan="2" align="left">
+                    Comments
+                </th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Model.Comments
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="2">
+                <p>
+                    If you need to make any changes you can <a href="javascript:history.go(-1)">edit</a>
+                    your information.</p>
+                <p>
+                    If everything looks good you can <a href="javascript:window.print()">print</a> your
+                    application and mail it with a check payable to:</p>
+                <p>
+                    Mt. Hood Miata Club<br />
+                    P.O. Box 396<br />
+                    Portland, Oregon 97207</p>
+                <p>
+                    When you're all done, click <a href="/Membership/Confirmation">here</a> to return
+                    to the site.</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

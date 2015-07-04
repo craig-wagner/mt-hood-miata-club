@@ -1,0 +1,82 @@
+﻿@model AddEditCarViewModel
+<script type="text/javascript">
+    $(document).ready(init);
+
+    function init() {
+        $("#Car_Year").focus();
+    }
+</script>
+<style type="text/css">
+    .labelColumn
+    {
+        width: 20%;
+    }
+    .dataColumn
+    {
+        width: 80%;
+    }
+</style>
+<table cellspacing="2" cellpadding="2" width="100%" border="0">
+    <tr>
+        <td class="labelColumn">
+            @Html.LabelFor( model => model.Car.Year ):
+        </td>
+        <td class="dataColumn">
+            @Html.DropDownListFor( model => model.Car.Year, new SelectList( Model.ModelYears as IEnumerable<int> ), new { style = "width: 65px" } )
+        </td>
+    </tr>
+    <tr>
+        <td class="labelColumn">
+            @Html.LabelFor( model => model.Car.Nickname ):
+        </td>
+        <td class="dataColumn">
+            @Html.TextBoxFor( model => model.Car.Nickname, new { @class = "longTextField", maxlength = "50" } )
+        </td>
+    </tr>
+    <tr>
+        <td class="labelColumn">
+            @Html.LabelFor( model => model.Car.License ):
+        </td>
+        <td class="dataColumn">
+            @Html.TextBoxFor( model => model.Car.License, new { @class = "longTextField", maxlength = "15" } )
+        </td>
+    </tr>
+    <tr>
+        <td class="labelColumn">
+            @Html.LabelFor( model => model.Car.ColorId ):
+        </td>
+        <td class="dataColumn">
+            @Html.DropDownListFor( model => model.Car.ColorId, new SelectList( Model.Colors as IEnumerable<Color>, "ColorId", "ColorName" ), new { @class = "longTextField" } )
+        </td>
+    </tr>
+    <tr>
+        <td class="labelColumn">
+            @Html.LabelFor( model => model.Car.SpecialEdition )?
+        </td>
+        <td class="dataColumn">
+            @Html.EditorFor( model => model.Car.SpecialEdition )
+        </td>
+    </tr>
+    <tr>
+        <td valign="top" class="labelColumn">
+            @Html.LabelFor( model => model.Car.Mods ):
+        </td>
+        <td class="dataColumn">
+            @Html.TextAreaFor( model => model.Car.Mods, new { @class = "textBlock" } )
+        </td>
+    </tr>
+    <tr>
+        <td>
+            &nbsp;
+        </td>
+        <td>
+            <button type="submit">
+                Save</button>
+            <button type="button" onclick="window.location.href='@Model.ReturnUrl'">
+                Cancel</button>
+        </td>
+    </tr>
+</table>
+<p>
+    Not sure which of the eight reds or twelve blues your car is? Check the <a target="_blank"
+        href="http://www.miata.net/gallery/">color gallery at Miata.net</a>.</p>

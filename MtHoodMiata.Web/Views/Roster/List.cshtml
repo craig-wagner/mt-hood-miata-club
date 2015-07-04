@@ -1,0 +1,55 @@
+﻿@using System.Text;
+@model RosterViewModel
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Roster";
+}
+<style type="text/css">
+    .memberColumn
+    {
+        vertical-align: top;
+        width: 30%;
+    }
+    .carColumn
+    {
+        width: 40%;
+    }
+</style>
+<div style="float: right">@Html.ActionLink( "Download the Roster", "Download", null, new { title = "This will download the roster as a CSV file to your computer. A CSV file can be opened in a text editor or a spreadsheet (e.g. Excel)." } )</div>
+<br />
+<br />
+@{
+    var grid = new WebGrid( Model.Memberships, defaultSort: "Member1FullName", rowsPerPage: 20 );
+
+    if( Model.ShowCurrentMemberInRoster )
+    {
+    @grid.GetHtml(
+        tableStyle: "border",
+        htmlAttributes: new { width = "100%" },
+        mode: WebGridPagerModes.All,
+        columns: grid.Columns(
+            grid.Column( "Member1FullName", "Primary Member",
+                style: "memberColumn",
+                format: @<text>@Html.ActionLink( (string)item.Member1FullName, "Detail", new { id = item.MembershipId } )</text> ),
+            grid.Column( "Member2FullName", "Significant Other",
+                style: "memberColumn" ),
+            grid.Column( header: "Car(s)",
+                style: "carColumn",
+                format: @<text>@Html.Partial( "_Cars", (object)item.CarDetails )</text> ) ) );
+    }
+    else
+    {
+    <text>You have elected to hide your roster information from the rest of the club.
+    In the interests of fairness, you are unable to view the roster information of other
+    members.</text>
+    }
+}
+@if( !String.IsNullOrWhiteSpace( grid.SortColumn ) )
+{
+    <script type="text/javascript">
+        $('thead > tr > th > a[href*="sort=@grid.SortColumn"]')
+            .parent()
+            .append('&nbsp;')
+            .append('@(grid.SortDirection == SortDirection.Ascending ? Html.Raw( "<img src=\"/images/sort-ascending.png\" />" ) : Html.Raw( "<img src=\"/images/sort-descending.png\" />" ))');
+    </script>
+}

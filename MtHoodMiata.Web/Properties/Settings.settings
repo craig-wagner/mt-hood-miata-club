@@ -1,0 +1,33 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MtHoodMiata.Web.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="WhatsNewLimit" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">7</Value>
+    </Setting>
+    <Setting Name="AppEmailTo" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">membership@mthoodmiata.org</Value>
+    </Setting>
+    <Setting Name="AppEmailCC" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">webmaster@mthoodmiata.org</Value>
+    </Setting>
+    <Setting Name="ErrEmailTo" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">craig.wagner@gmail.com</Value>
+    </Setting>
+    <Setting Name="EnableMemberLogin" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DisplayErrorDetails" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SmtpServer" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">relay-hosting.secureserver.net</Value>
+    </Setting>
+    <Setting Name="EmailFrom" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">no-reply@mthoodmiata.org</Value>
+    </Setting>
+    <Setting Name="MaxImageSize" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">720</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

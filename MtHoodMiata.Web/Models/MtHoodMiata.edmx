@@ -1,0 +1,567 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MtHoodMiata.Web.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MtHoodMiataWebStoreContainer">
+          <EntitySet Name="CarDetail" EntityType="MtHoodMiata.Web.Store.CarDetail" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ClassifiedAd" EntityType="MtHoodMiata.Web.Store.ClassifiedAd" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ClassifiedAdType" EntityType="MtHoodMiata.Web.Store.ClassifiedAdType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Color" EntityType="MtHoodMiata.Web.Store.Color" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ColorFamily" EntityType="MtHoodMiata.Web.Store.ColorFamily" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EventInfo" EntityType="MtHoodMiata.Web.Store.EventInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MeetingInfo" EntityType="MtHoodMiata.Web.Store.MeetingInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Membership" EntityType="MtHoodMiata.Web.Store.Membership" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="fkCarDetail_Color" Association="MtHoodMiata.Web.Store.fkCarDetail_Color">
+            <End Role="Color" EntitySet="Color" />
+            <End Role="CarDetail" EntitySet="CarDetail" />
+          </AssociationSet>
+          <AssociationSet Name="fkCarDetail_Membership" Association="MtHoodMiata.Web.Store.fkCarDetail_Membership">
+            <End Role="Membership" EntitySet="Membership" />
+            <End Role="CarDetail" EntitySet="CarDetail" />
+          </AssociationSet>
+          <AssociationSet Name="fkClassifiedAd_ClassifiedAdType" Association="MtHoodMiata.Web.Store.fkClassifiedAd_ClassifiedAdType">
+            <End Role="ClassifiedAdType" EntitySet="ClassifiedAdType" />
+            <End Role="ClassifiedAd" EntitySet="ClassifiedAd" />
+          </AssociationSet>
+          <AssociationSet Name="fkClassifiedAd_Membership" Association="MtHoodMiata.Web.Store.fkClassifiedAd_Membership">
+            <End Role="Membership" EntitySet="Membership" />
+            <End Role="ClassifiedAd" EntitySet="ClassifiedAd" />
+          </AssociationSet>
+          <AssociationSet Name="fkColor_ColorFamily" Association="MtHoodMiata.Web.Store.fkColor_ColorFamily">
+            <End Role="ColorFamily" EntitySet="ColorFamily" />
+            <End Role="Color" EntitySet="Color" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CarDetail">
+          <Key>
+            <PropertyRef Name="CarDetailId" />
+          </Key>
+          <Property Name="CarDetailId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MembershipId" Type="int" Nullable="false" />
+          <Property Name="Year" Type="char" Nullable="false" MaxLength="4" />
+          <Property Name="Nickname" Type="varchar" MaxLength="50" />
+          <Property Name="License" Type="varchar" MaxLength="15" />
+          <Property Name="Mods" Type="varchar(max)" />
+          <Property Name="SpecialEdition" Type="bit" Nullable="false" />
+          <Property Name="ColorId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClassifiedAd">
+          <Key>
+            <PropertyRef Name="ClassifiedAdId" />
+          </Key>
+          <Property Name="ClassifiedAdId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MembershipId" Type="int" Nullable="false" />
+          <Property Name="ClassifiedAdTypeCode" Type="int" Nullable="false" />
+          <Property Name="AdText" Type="varchar(max)" Nullable="false" />
+          <Property Name="AdPlacedDttm" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClassifiedAdType">
+          <Key>
+            <PropertyRef Name="ClassifiedAdTypeCode" />
+          </Key>
+          <Property Name="ClassifiedAdTypeCode" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ClassifiedAdType" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Sequence" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Color">
+          <Key>
+            <PropertyRef Name="ColorId" />
+          </Key>
+          <Property Name="ColorId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ColorName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ColorFamilyId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ColorFamily">
+          <Key>
+            <PropertyRef Name="ColorFamilyId" />
+          </Key>
+          <Property Name="ColorFamilyId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ColorFamilyName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="EventInfo">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventName" Type="varchar" Nullable="false" MaxLength="65" />
+          <Property Name="StartDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="EndDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="Planner" Type="varchar" Nullable="false" MaxLength="65" />
+          <Property Name="UpdatedDttm" Type="datetime" Nullable="false" />
+          <Property Name="EventDetails" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="MeetingInfo">
+          <Key>
+            <PropertyRef Name="MeetingId" />
+          </Key>
+          <Property Name="MeetingId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Location" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Address" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="City" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="State" Type="char" Nullable="false" MaxLength="2" />
+          <Property Name="Zip" Type="char" MaxLength="5" />
+          <Property Name="Phone" Type="char" MaxLength="10" />
+          <Property Name="MapUrl" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="Notes" Type="varchar(max)" />
+          <Property Name="MeetingDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDttm" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Membership">
+          <Key>
+            <PropertyRef Name="MembershipId" />
+          </Key>
+          <Property Name="MembershipId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MembershipDueDate" Type="datetime" Nullable="false" />
+          <Property Name="NewsletterPreference" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="ShowInRoster" Type="bit" Nullable="false" />
+          <Property Name="Member1FirstName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Member1LastName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Member1CellPhone" Type="char" MaxLength="10" />
+          <Property Name="Member1WorkPhone" Type="char" MaxLength="10" />
+          <Property Name="Member1DOB" Type="char" MaxLength="4" />
+          <Property Name="Member1Username" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Member1Password" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Member1Email" Type="varchar" MaxLength="50" />
+          <Property Name="IsMember1BoardMember" Type="bit" Nullable="false" />
+          <Property Name="Member2FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="Member2LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Member2CellPhone" Type="char" MaxLength="10" />
+          <Property Name="Member2WorkPhone" Type="char" MaxLength="10" />
+          <Property Name="Member2DOB" Type="char" MaxLength="4" />
+          <Property Name="Member2Username" Type="varchar" MaxLength="50" />
+          <Property Name="Member2Password" Type="varchar" MaxLength="50" />
+          <Property Name="Member2Email" Type="varchar" MaxLength="50" />
+          <Property Name="IsMember2BoardMember" Type="bit" Nullable="false" />
+          <Property Name="AddressLine1" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="AddressLine2" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="State" Type="char" Nullable="false" MaxLength="2" />
+          <Property Name="Zip" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="HomePhone" Type="char" MaxLength="10" />
+          <Property Name="AnniversaryDate" Type="char" MaxLength="4" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'mthoodmiata.dbo.ActiveMembership' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <Association Name="fkCarDetail_Color">
+          <End Role="Color" Type="MtHoodMiata.Web.Store.Color" Multiplicity="1" />
+          <End Role="CarDetail" Type="MtHoodMiata.Web.Store.CarDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Color">
+              <PropertyRef Name="ColorId" />
+            </Principal>
+            <Dependent Role="CarDetail">
+              <PropertyRef Name="ColorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkCarDetail_Membership">
+          <End Role="Membership" Type="MtHoodMiata.Web.Store.Membership" Multiplicity="1" />
+          <End Role="CarDetail" Type="MtHoodMiata.Web.Store.CarDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Membership">
+              <PropertyRef Name="MembershipId" />
+            </Principal>
+            <Dependent Role="CarDetail">
+              <PropertyRef Name="MembershipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkClassifiedAd_ClassifiedAdType">
+          <End Role="ClassifiedAdType" Type="MtHoodMiata.Web.Store.ClassifiedAdType" Multiplicity="1" />
+          <End Role="ClassifiedAd" Type="MtHoodMiata.Web.Store.ClassifiedAd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassifiedAdType">
+              <PropertyRef Name="ClassifiedAdTypeCode" />
+            </Principal>
+            <Dependent Role="ClassifiedAd">
+              <PropertyRef Name="ClassifiedAdTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkClassifiedAd_Membership">
+          <End Role="Membership" Type="MtHoodMiata.Web.Store.Membership" Multiplicity="1" />
+          <End Role="ClassifiedAd" Type="MtHoodMiata.Web.Store.ClassifiedAd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Membership">
+              <PropertyRef Name="MembershipId" />
+            </Principal>
+            <Dependent Role="ClassifiedAd">
+              <PropertyRef Name="MembershipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkColor_ColorFamily">
+          <End Role="ColorFamily" Type="MtHoodMiata.Web.Store.ColorFamily" Multiplicity="1" />
+          <End Role="Color" Type="MtHoodMiata.Web.Store.Color" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ColorFamily">
+              <PropertyRef Name="ColorFamilyId" />
+            </Principal>
+            <Dependent Role="Color">
+              <PropertyRef Name="ColorFamilyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MtHoodMiata.Web" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MtHoodMiataEntities" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="CarDetails" EntityType="MtHoodMiata.Web.CarDetail" />
+          <EntitySet Name="ClassifiedAds" EntityType="MtHoodMiata.Web.ClassifiedAd" />
+          <EntitySet Name="ClassifiedAdTypes" EntityType="MtHoodMiata.Web.ClassifiedAdType" />
+          <EntitySet Name="Colors" EntityType="MtHoodMiata.Web.Color" />
+          <EntitySet Name="ColorFamilies" EntityType="MtHoodMiata.Web.ColorFamily" />
+          <EntitySet Name="EventInfoes" EntityType="MtHoodMiata.Web.EventInfo" />
+          <EntitySet Name="MeetingInfoes" EntityType="MtHoodMiata.Web.MeetingInfo" />
+          <EntitySet Name="Memberships" EntityType="MtHoodMiata.Web.Membership" />
+          <AssociationSet Name="fkCarDetail_Color" Association="MtHoodMiata.Web.fkCarDetail_Color">
+            <End Role="Color" EntitySet="Colors" />
+            <End Role="CarDetail" EntitySet="CarDetails" />
+          </AssociationSet>
+          <AssociationSet Name="fkCarDetail_Membership" Association="MtHoodMiata.Web.fkCarDetail_Membership">
+            <End Role="Membership" EntitySet="Memberships" />
+            <End Role="CarDetail" EntitySet="CarDetails" />
+          </AssociationSet>
+          <AssociationSet Name="fkClassifiedAd_ClassifiedAdType" Association="MtHoodMiata.Web.fkClassifiedAd_ClassifiedAdType">
+            <End Role="ClassifiedAdType" EntitySet="ClassifiedAdTypes" />
+            <End Role="ClassifiedAd" EntitySet="ClassifiedAds" />
+          </AssociationSet>
+          <AssociationSet Name="fkClassifiedAd_Membership" Association="MtHoodMiata.Web.fkClassifiedAd_Membership">
+            <End Role="Membership" EntitySet="Memberships" />
+            <End Role="ClassifiedAd" EntitySet="ClassifiedAds" />
+          </AssociationSet>
+          <AssociationSet Name="fkColor_ColorFamily" Association="MtHoodMiata.Web.fkColor_ColorFamily">
+            <End Role="ColorFamily" EntitySet="ColorFamilies" />
+            <End Role="Color" EntitySet="Colors" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CarDetail">
+          <Key>
+            <PropertyRef Name="CarDetailId" />
+          </Key>
+          <Property Name="CarDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MembershipId" Type="Int32" Nullable="false" />
+          <Property Name="Year" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="Nickname" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="License" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="Mods" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="SpecialEdition" Type="Boolean" Nullable="false" />
+          <Property Name="ColorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Color" Relationship="MtHoodMiata.Web.fkCarDetail_Color" FromRole="CarDetail" ToRole="Color" />
+          <NavigationProperty Name="Membership" Relationship="MtHoodMiata.Web.fkCarDetail_Membership" FromRole="CarDetail" ToRole="Membership" />
+        </EntityType>
+        <EntityType Name="ClassifiedAd">
+          <Key>
+            <PropertyRef Name="ClassifiedAdId" />
+          </Key>
+          <Property Name="ClassifiedAdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MembershipId" Type="Int32" Nullable="false" />
+          <Property Name="ClassifiedAdTypeCode" Type="Int32" Nullable="false" />
+          <Property Name="AdText" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="AdPlacedDttm" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="ClassifiedAdType" Relationship="MtHoodMiata.Web.fkClassifiedAd_ClassifiedAdType" FromRole="ClassifiedAd" ToRole="ClassifiedAdType" />
+          <NavigationProperty Name="Membership" Relationship="MtHoodMiata.Web.fkClassifiedAd_Membership" FromRole="ClassifiedAd" ToRole="Membership" />
+        </EntityType>
+        <EntityType Name="ClassifiedAdType">
+          <Key>
+            <PropertyRef Name="ClassifiedAdTypeCode" />
+          </Key>
+          <Property Name="ClassifiedAdTypeCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ClassifiedAds" Relationship="MtHoodMiata.Web.fkClassifiedAd_ClassifiedAdType" FromRole="ClassifiedAdType" ToRole="ClassifiedAd" />
+        </EntityType>
+        <EntityType Name="Color">
+          <Key>
+            <PropertyRef Name="ColorId" />
+          </Key>
+          <Property Name="ColorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ColorName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ColorFamilyId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CarDetails" Relationship="MtHoodMiata.Web.fkCarDetail_Color" FromRole="Color" ToRole="CarDetail" />
+          <NavigationProperty Name="ColorFamily" Relationship="MtHoodMiata.Web.fkColor_ColorFamily" FromRole="Color" ToRole="ColorFamily" />
+        </EntityType>
+        <EntityType Name="ColorFamily">
+          <Key>
+            <PropertyRef Name="ColorFamilyId" />
+          </Key>
+          <Property Name="ColorFamilyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ColorFamilyName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Colors" Relationship="MtHoodMiata.Web.fkColor_ColorFamily" FromRole="ColorFamily" ToRole="Color" />
+        </EntityType>
+        <EntityType Name="EventInfo">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventName" Type="String" Nullable="false" MaxLength="65" Unicode="false" FixedLength="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" />
+          <Property Name="Planner" Type="String" Nullable="false" MaxLength="65" Unicode="false" FixedLength="false" />
+          <Property Name="UpdatedDttm" Type="DateTime" Nullable="false" />
+          <Property Name="EventDetails" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="MeetingInfo">
+          <Key>
+            <PropertyRef Name="MeetingId" />
+          </Key>
+          <Property Name="MeetingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="true" />
+          <Property Name="Zip" Type="String" MaxLength="5" Unicode="false" FixedLength="true" />
+          <Property Name="Phone" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="MapUrl" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="MeetingDate" Type="DateTime" Nullable="false" />
+          <Property Name="UpdatedDttm" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Membership">
+          <Key>
+            <PropertyRef Name="MembershipId" />
+          </Key>
+          <Property Name="MembershipId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MembershipDueDate" Type="DateTime" Nullable="false" />
+          <Property Name="NewsletterPreference" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="ShowInRoster" Type="Boolean" Nullable="false" />
+          <Property Name="Member1FirstName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Member1LastName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Member1CellPhone" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="Member1WorkPhone" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="Member1Dob" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="Member1Username" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Member1Password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Member1Email" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="IsMember1BoardMember" Type="Boolean" Nullable="false" />
+          <Property Name="Member2FirstName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Member2LastName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Member2CellPhone" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="Member2WorkPhone" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="Member2Dob" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <Property Name="Member2Username" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Member2Password" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Member2Email" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="IsMember2BoardMember" Type="Boolean" Nullable="false" />
+          <Property Name="AddressLine1" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="AddressLine2" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="true" />
+          <Property Name="Zip" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="HomePhone" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="AnniversaryDate" Type="String" MaxLength="4" Unicode="false" FixedLength="true" />
+          <NavigationProperty Name="CarDetails" Relationship="MtHoodMiata.Web.fkCarDetail_Membership" FromRole="Membership" ToRole="CarDetail" />
+          <NavigationProperty Name="ClassifiedAds" Relationship="MtHoodMiata.Web.fkClassifiedAd_Membership" FromRole="Membership" ToRole="ClassifiedAd" />
+        </EntityType>
+        <Association Name="fkCarDetail_Color">
+          <End Role="Color" Type="MtHoodMiata.Web.Color" Multiplicity="1" />
+          <End Role="CarDetail" Type="MtHoodMiata.Web.CarDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Color">
+              <PropertyRef Name="ColorId" />
+            </Principal>
+            <Dependent Role="CarDetail">
+              <PropertyRef Name="ColorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkCarDetail_Membership">
+          <End Role="Membership" Type="MtHoodMiata.Web.Membership" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CarDetail" Type="MtHoodMiata.Web.CarDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Membership">
+              <PropertyRef Name="MembershipId" />
+            </Principal>
+            <Dependent Role="CarDetail">
+              <PropertyRef Name="MembershipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkClassifiedAd_ClassifiedAdType">
+          <End Role="ClassifiedAdType" Type="MtHoodMiata.Web.ClassifiedAdType" Multiplicity="1" />
+          <End Role="ClassifiedAd" Type="MtHoodMiata.Web.ClassifiedAd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassifiedAdType">
+              <PropertyRef Name="ClassifiedAdTypeCode" />
+            </Principal>
+            <Dependent Role="ClassifiedAd">
+              <PropertyRef Name="ClassifiedAdTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkClassifiedAd_Membership">
+          <End Role="Membership" Type="MtHoodMiata.Web.Membership" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ClassifiedAd" Type="MtHoodMiata.Web.ClassifiedAd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Membership">
+              <PropertyRef Name="MembershipId" />
+            </Principal>
+            <Dependent Role="ClassifiedAd">
+              <PropertyRef Name="MembershipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkColor_ColorFamily">
+          <End Role="ColorFamily" Type="MtHoodMiata.Web.ColorFamily" Multiplicity="1" />
+          <End Role="Color" Type="MtHoodMiata.Web.Color" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ColorFamily">
+              <PropertyRef Name="ColorFamilyId" />
+            </Principal>
+            <Dependent Role="Color">
+              <PropertyRef Name="ColorFamilyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MtHoodMiataWebStoreContainer" CdmEntityContainer="MtHoodMiataEntities">
+          <EntitySetMapping Name="CarDetails"><EntityTypeMapping TypeName="MtHoodMiata.Web.CarDetail"><MappingFragment StoreEntitySet="CarDetail">
+            <ScalarProperty Name="CarDetailId" ColumnName="CarDetailId" />
+            <ScalarProperty Name="MembershipId" ColumnName="MembershipId" />
+            <ScalarProperty Name="Year" ColumnName="Year" />
+            <ScalarProperty Name="Nickname" ColumnName="Nickname" />
+            <ScalarProperty Name="License" ColumnName="License" />
+            <ScalarProperty Name="Mods" ColumnName="Mods" />
+            <ScalarProperty Name="SpecialEdition" ColumnName="SpecialEdition" />
+            <ScalarProperty Name="ColorId" ColumnName="ColorId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ClassifiedAds"><EntityTypeMapping TypeName="MtHoodMiata.Web.ClassifiedAd"><MappingFragment StoreEntitySet="ClassifiedAd">
+            <ScalarProperty Name="ClassifiedAdId" ColumnName="ClassifiedAdId" />
+            <ScalarProperty Name="MembershipId" ColumnName="MembershipId" />
+            <ScalarProperty Name="ClassifiedAdTypeCode" ColumnName="ClassifiedAdTypeCode" />
+            <ScalarProperty Name="AdText" ColumnName="AdText" />
+            <ScalarProperty Name="AdPlacedDttm" ColumnName="AdPlacedDttm" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ClassifiedAdTypes"><EntityTypeMapping TypeName="MtHoodMiata.Web.ClassifiedAdType"><MappingFragment StoreEntitySet="ClassifiedAdType">
+            <ScalarProperty Name="ClassifiedAdTypeCode" ColumnName="ClassifiedAdTypeCode" />
+            <ScalarProperty Name="Name" ColumnName="ClassifiedAdType" />
+            <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Colors"><EntityTypeMapping TypeName="MtHoodMiata.Web.Color"><MappingFragment StoreEntitySet="Color">
+            <ScalarProperty Name="ColorId" ColumnName="ColorId" />
+            <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+            <ScalarProperty Name="ColorFamilyId" ColumnName="ColorFamilyId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ColorFamilies"><EntityTypeMapping TypeName="MtHoodMiata.Web.ColorFamily"><MappingFragment StoreEntitySet="ColorFamily">
+            <ScalarProperty Name="ColorFamilyId" ColumnName="ColorFamilyId" />
+            <ScalarProperty Name="ColorFamilyName" ColumnName="ColorFamilyName" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="EventInfoes"><EntityTypeMapping TypeName="MtHoodMiata.Web.EventInfo"><MappingFragment StoreEntitySet="EventInfo">
+            <ScalarProperty Name="EventId" ColumnName="EventId" />
+            <ScalarProperty Name="EventName" ColumnName="EventName" />
+            <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+            <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+            <ScalarProperty Name="Planner" ColumnName="Planner" />
+            <ScalarProperty Name="UpdatedDttm" ColumnName="UpdatedDttm" />
+            <ScalarProperty Name="EventDetails" ColumnName="EventDetails" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MeetingInfoes"><EntityTypeMapping TypeName="MtHoodMiata.Web.MeetingInfo"><MappingFragment StoreEntitySet="MeetingInfo">
+            <ScalarProperty Name="MeetingId" ColumnName="MeetingId" />
+            <ScalarProperty Name="Location" ColumnName="Location" />
+            <ScalarProperty Name="Address" ColumnName="Address" />
+            <ScalarProperty Name="City" ColumnName="City" />
+            <ScalarProperty Name="State" ColumnName="State" />
+            <ScalarProperty Name="Zip" ColumnName="Zip" />
+            <ScalarProperty Name="Phone" ColumnName="Phone" />
+            <ScalarProperty Name="MapUrl" ColumnName="MapUrl" />
+            <ScalarProperty Name="Notes" ColumnName="Notes" />
+            <ScalarProperty Name="MeetingDate" ColumnName="MeetingDate" />
+            <ScalarProperty Name="UpdatedDttm" ColumnName="UpdatedDttm" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Memberships"><EntityTypeMapping TypeName="MtHoodMiata.Web.Membership"><MappingFragment StoreEntitySet="Membership">
+                <ScalarProperty Name="MembershipId" ColumnName="MembershipId" />
+            <ScalarProperty Name="MembershipDueDate" ColumnName="MembershipDueDate" />
+            <ScalarProperty Name="NewsletterPreference" ColumnName="NewsletterPreference" />
+            <ScalarProperty Name="ShowInRoster" ColumnName="ShowInRoster" />
+            <ScalarProperty Name="Member1FirstName" ColumnName="Member1FirstName" />
+            <ScalarProperty Name="Member1LastName" ColumnName="Member1LastName" />
+            <ScalarProperty Name="Member1CellPhone" ColumnName="Member1CellPhone" />
+            <ScalarProperty Name="Member1WorkPhone" ColumnName="Member1WorkPhone" />
+            <ScalarProperty Name="Member1Dob" ColumnName="Member1DOB" />
+            <ScalarProperty Name="Member1Username" ColumnName="Member1Username" />
+            <ScalarProperty Name="Member1Password" ColumnName="Member1Password" />
+            <ScalarProperty Name="Member1Email" ColumnName="Member1Email" />
+            <ScalarProperty Name="IsMember1BoardMember" ColumnName="IsMember1BoardMember" />
+            <ScalarProperty Name="Member2FirstName" ColumnName="Member2FirstName" />
+            <ScalarProperty Name="Member2LastName" ColumnName="Member2LastName" />
+            <ScalarProperty Name="Member2CellPhone" ColumnName="Member2CellPhone" />
+            <ScalarProperty Name="Member2WorkPhone" ColumnName="Member2WorkPhone" />
+            <ScalarProperty Name="Member2Dob" ColumnName="Member2DOB" />
+            <ScalarProperty Name="Member2Username" ColumnName="Member2Username" />
+            <ScalarProperty Name="Member2Password" ColumnName="Member2Password" />
+            <ScalarProperty Name="Member2Email" ColumnName="Member2Email" />
+            <ScalarProperty Name="IsMember2BoardMember" ColumnName="IsMember2BoardMember" />
+            <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+            <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+            <ScalarProperty Name="City" ColumnName="City" />
+            <ScalarProperty Name="State" ColumnName="State" />
+            <ScalarProperty Name="Zip" ColumnName="Zip" />
+            <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+            <ScalarProperty Name="AnniversaryDate" ColumnName="AnniversaryDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="MtHoodMiata">
+        <EntityTypeShape EntityType="MtHoodMiata.Web.CarDetail" Width="1.5" PointX="4.25" PointY="4.5" Height="2.9417936205863953" IsExpanded="true" />
+        <EntityTypeShape EntityType="MtHoodMiata.Web.ClassifiedAd" Width="1.875" PointX="4.25" PointY="1.125" Height="2.3648893237113953" IsExpanded="true" />
+        <EntityTypeShape EntityType="MtHoodMiata.Web.ClassifiedAdType" Width="1.875" PointX="7.375" PointY="1.25" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="MtHoodMiata.Web.Color" Width="1.5" PointX="6.625" PointY="4.625" Height="1.9802864585071802" IsExpanded="true" />
+        <EntityTypeShape EntityType="MtHoodMiata.Web.ColorFamily" Width="1.5" PointX="9" PointY="4.625" Height="1.5956835933029652" IsExpanded="true" />
+        <EntityTypeShape EntityType="MtHoodMiata.Web.EventInfo" Width="1.5" PointX="11.625" PointY="4.375" Height="2.3648893237113953" IsExpanded="true" />
+        <EntityTypeShape EntityType="MtHoodMiata.Web.MeetingInfo" Width="1.5" PointX="11.625" PointY="0.5" Height="3.13409505225718" IsExpanded="true" />
+        <EntityTypeShape EntityType="MtHoodMiata.Web.Membership" Width="2.25" PointX="0.75" PointY="1.125" Height="6.9801236979166656" IsExpanded="true" />
+        <AssociationConnector Association="MtHoodMiata.Web.fkCarDetail_Color" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.625" PointY="5.61514322925359" />
+          <ConnectorPoint PointX="5.75" PointY="5.61514322925359" />
+        </AssociationConnector>
+        <AssociationConnector Association="MtHoodMiata.Web.fkCarDetail_Membership" ManuallyRouted="false">
+          <ConnectorPoint PointX="3" PointY="5.9708968102931976" />
+          <ConnectorPoint PointX="4.25" PointY="5.9708968102931976" />
+        </AssociationConnector>
+        <AssociationConnector Association="MtHoodMiata.Web.fkClassifiedAd_ClassifiedAdType" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.375" PointY="2.1439925130208337" />
+          <ConnectorPoint PointX="6.125" PointY="2.1439925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="MtHoodMiata.Web.fkClassifiedAd_Membership" ManuallyRouted="false">
+          <ConnectorPoint PointX="3" PointY="2.3074446618556976" />
+          <ConnectorPoint PointX="4.25" PointY="2.3074446618556976" />
+        </AssociationConnector>
+        <AssociationConnector Association="MtHoodMiata.Web.fkColor_ColorFamily" ManuallyRouted="false">
+          <ConnectorPoint PointX="9" PointY="5.4228417966514826" />
+          <ConnectorPoint PointX="8.125" PointY="5.4228417966514826" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

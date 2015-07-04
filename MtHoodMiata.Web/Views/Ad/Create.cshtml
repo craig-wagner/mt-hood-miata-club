@@ -1,0 +1,10 @@
+﻿@model ClassifiedAdViewModel
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Create Classifed Ad";
+}
+@using( Html.BeginForm() )
+{
+    @Html.ValidationSummary()
+    @Html.EditorForModel()
+}

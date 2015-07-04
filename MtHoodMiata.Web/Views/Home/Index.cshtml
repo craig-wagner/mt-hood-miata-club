@@ -1,0 +1,138 @@
+@model IndexViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Menu = "_MainMenu";
+    ViewBag.Title = "Mt. Hood Miata Club";
+}
+
+@section MenuFooter
+{
+    <p style="text-align: center">
+        Club Members<br />
+        @Html.Partial( "_Odometer", Model.MemberCount )
+        <br />
+        Memberships<br />
+        @Html.Partial( "_Odometer", Model.MembershipCount )
+        <br />
+        Miatas<br />
+        @Html.Partial( "_Odometer", Model.MiataCount )
+        <br />
+        Visitors<br />
+        @Html.Partial( "_Odometer", Model.HitCount )
+    </p>
+}
+
+<div style="z-index: 2; left: 210px; width: 530px; position: absolute; top: 145px; text-align: center">
+    Welcome to the Mt. Hood Miata Club's web site.<br />
+    We represent Miata owners in Oregon, from Portland to<br />
+    Salem, Pendleton to the coast, and in Southwest<br />
+    Washington, from Vancouver to Longview.
+</div>
+
+<div style="z-index: 2; left: 235px; width: 290px; position: absolute; top: 280px; height: 200px; text-align: center">
+    <p class="sectionHeader">Next Dinner Meeting</p>
+
+    @if( @Model.UpcomingMeeting != null )
+    { 
+        <p>
+            <a href="/Meeting/Index">@Model.UpcomingMeeting.MeetingDate.ToString( "MMM d, yyyy" )<br />
+                @Model.UpcomingMeeting.Location</a>
+        </p>
+    }
+    else
+    { 
+        <p>The next meeting has not yet been scheduled.</p>
+    }
+
+    <p class="sectionHeader">Upcoming Events</p>
+
+    @foreach( EventInfo eventInfo in @Model.UpcomingEvents )
+    {
+        string eventDate;
+
+        if( eventInfo.StartDate == eventInfo.EndDate )
+        {
+            eventDate = eventInfo.StartDate.ToString( "MMM d, yyyy" );
+        }
+        else
+        {
+            eventDate = String.Format( "{0:MMM d} - {1:MMM d, yyyy}", eventInfo.StartDate,
+            eventInfo.EndDate );
+        }
+        <p>
+            <a href="/Event/Detail/@eventInfo.EventId">@eventDate<br />
+                @eventInfo.EventName</a>
+        </p>
+    }
+</div>
+
+<img src="/images/UpdateBox.gif" style="z-index: 1; left: 465px; position: absolute; top: 205px"
+    width="287" height="437" alt="" />
+
+<div style="z-index: 2; left: 560px; width: 180px; position: absolute; top: 280px">
+    <p class="sectionHeader">What's New!</p>
+
+    @foreach( UpdatedItem updatedItem in Model.UpdatedItems )
+    {
+        if( updatedItem.ItemType == "A" )
+        {
+        @updatedItem.ItemText<span class="small"><br />
+            Updated: @updatedItem.UpdateDttm.ToString( "M/d/yy" )</span>
+        }
+        else if( updatedItem.ItemType == "E" )
+        { 
+        <a href="/Event/Detail/@updatedItem.ItemId">Event: @updatedItem.ItemText</a><span
+            class="small"><br />
+            Updated: @updatedItem.UpdateDttm.ToString( "M/d/yy" )</span>
+        }
+        else if( updatedItem.ItemType == "M" )
+        {
+        <a href="/Meeting/Index">Meeting: @updatedItem.ItemText</a><span class="small"><br />
+            Updated: @updatedItem.UpdateDttm.ToString( "M/d/yy" )</span>
+        }
+        <br />
+    }
+</div>
+
+
+<div style="text-align: center; left: 210px; width: 530px; position: absolute; top: 700px">
+    Mt. Hood Miata Club<br />
+    P.O. Box 396<br />
+    Portland, Oregon 97207<br />
+    <a href="mailto:miatas@mthoodmiata.org">miatas@mthoodmiata.org</a>
+    <p class="sectionHeader">Number and Colors of Miatas in Club</p>
+
+    <table style="width: 100%">
+        <tr class="categoryName" style="text-align: center; vertical-align: bottom">
+            @foreach( IGrouping<string, string> value in Model.Years )
+            { 
+                <td>@value.Key
+                </td>
+            }
+        </tr>
+        <tr class="categoryCount" style="text-align: center">
+            @foreach( IGrouping<string, string> value in Model.Years )
+            {
+                <td>@value.Count()
+                </td>
+            }
+        </tr>
+    </table>
+
+    <table style="width: 100%">
+        <tr class="categoryName" style="text-align: center">
+            @foreach( IGrouping<string, string> value in Model.Colors )
+            { 
+                <td>@value.Key
+                </td>
+            }
+        </tr>
+        <tr class="categoryCount" style="text-align: center">
+            @foreach( IGrouping<string, string> value in Model.Colors )
+            {
+                <td>@value.Count()
+                </td>
+            }
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Menu = "_MainMenu"; 
+    ViewBag.Title = "MHMC: Discard Application";
+}
+<p>
+    You have chosen to cancel your payment. Your application will not be processed at
+    this time.</p>
+<p>
+    If this was an accident, you can click <a href="/Content/Membership/Payment.html">here</a>
+    or the button below to return to PayPal and complete your transaction.</p>
+<div align="center">
+    <a href="/Content/Membership/Payment.html">
+        <img src="https://www.paypal.com/images/x-click-but6.gif" alt="PayPal" /></a>
+</div>
+<hr />
+<p class="sectionHeader">
+    Cancel Your Application</p>
+<p>
+    If you did intend to cancel your application, please confirm that your full name
+    shown below is as it appears on your application and click the "Cancel My Application"
+    button.</p>
+@using( Html.BeginForm() )
+{ 
+    <div align="center">
+        Name:
+        <input type="text" name="name" size="50" maxlength="100" value="@ViewBag.ApplicationName" />
+    </div>
+    
+    <p align="center">
+        <button type="submit">
+            Cancel My Application</button></p>
+}

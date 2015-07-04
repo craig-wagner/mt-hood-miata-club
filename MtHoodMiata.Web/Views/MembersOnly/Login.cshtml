@@ -1,0 +1,85 @@
+﻿@model LoginViewModel
+@{
+    ViewBag.Menu = "_MainMenu";
+    ViewBag.Title = "MHMC: Members Only Login";
+}
+<script type="text/javascript">
+    $(document).ready(init);
+
+    function init() {
+        $("#Username").focus();
+    }
+</script>
+<p>
+    <img src="/images/signs/roadclosed.gif" style="float: left; width: 150px; height: 78px"
+        alt="Road Closed" />
+    Welcome to the secure section of the Mt. Hood Miata Club web site. Only club members
+    have access to this area. Please visit the <a href="/Membership/Information">Join Us</a>
+    page for information on becoming a member.</p>
+<br />
+<br />
+<div style="float: none; margin-left: 40px">
+    @if( Model.IsLoginEnabled )
+    {
+        using( @Html.BeginForm() )
+        {
+        @Html.ValidationSummary( "Please correct the following errors and try logging in again." );
+        <table cellspacing="1" cellpadding="1" align="center" style="width: 350px">
+            <tr>
+                <td width="30%">
+                    @Html.LabelFor( model => model.Username, "Username:" )
+                </td>
+                <td width="70%">
+                    @Html.TextBoxFor( model => model.Username, new { maxlength = "50", style = "width: 200px" } )
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">
+                    @Html.LabelFor( model => model.Password, "Password:" )
+                </td>
+                <td width="70%">
+                    @Html.PasswordFor( model => model.Password, new { maxlength = "50", style = "width: 200px" } )
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    <button type="submit">
+                        Login</button>
+                    &nbsp;
+                    <button type="button" onclick="window.location.href='/Home/Index'">
+                        Cancel</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="attention">
+                    @if( Model.LoginStatus == LoginStatus.LapsedMembership )
+                    {
+                        <text>Your membership has lapsed. Please contact the <a href="mailto:membership@mthoodmiata.org?Subject=Lapsed Dues">
+                            Membership Director</a> for assistance.</text>
+                    }
+                    else if( Model.LoginStatus == LoginStatus.InvalidCredentials )
+                    {
+                        <text>Sorry, I can't find that username or password in the system.</text>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    If you can't remember your username or password, click <a href="/MembersOnly/RecoverCredentials">
+                        here</a>.
+                </td>
+            </tr>
+        </table>
+        }
+    }
+    else
+    {
+        <p>
+            <strong>The Members Only area is currently unavailable while we perform maintenance
+                on the site. We apologize for the inconvenience and are working as quickly as possible
+                to restore access to this area.</strong></p>
+    }
+</div>

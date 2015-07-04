@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Board Member Menu";
+}
+<table width="100%" cellpadding="2" cellspacing="1" border="1">
+    <tr>
+        <td colspan="2" class="sectionHeader">
+            Maintenance
+        </td>
+    </tr>
+    <tr>
+        <td width="30%" valign="top">
+            <a href="/Membership/List">Roster</a>
+        </td>
+        <td width="70%">
+            Add and edit information about members and their cars.
+        </td>
+    </tr>
+    <tr>
+        <td width="30%" valign="top">
+            <a href="/Newsletter/Upload">Newsletter</a>
+        </td>
+        <td width="70%">
+            Upload a newsletter to the website and optionally have it emailed to the membership.
+        </td>
+    </tr>
+    <tr>
+        <td width="30%" valign="top">
+            <a href="/Meeting/List?sortdir=DESC">Dinner Meetings</a>
+        </td>
+        <td width="70%">
+            Add, edit, and copy dinner meeting information.
+        </td>
+    </tr>
+    <tr>
+        <td width="30%" valign="top">
+            <a href="/Event/List?sortdir=DESC">Events</a>
+        </td>
+        <td width="70%">
+            Add, edit, and copy event information.
+        </td>
+    </tr>
+</table>
+<br />
+<table width="100%" cellpadding="2" cellspacing="1" border="1">
+    <tr>
+        <td colspan="2" class="sectionHeader">
+            Downloads
+        </td>
+    </tr>
+    <tr>
+        <td width="30%" valign="top">
+            <a href="/Board/NewsletterMailingList">Newsletter Mailing List</a>
+        </td>
+        <td width="70%">
+            Downloads a comma-separated list of members who have elected to get their newsletter
+            via postal mail. The list includes the first and last name of both members along
+            with their mailing address.
+        </td>
+    </tr>
+    <tr>
+        <td width="30%" valign="top">
+            <a href="/Board/NewsletterEmailList">Newsletter Email List</a>
+        </td>
+        <td width="70%">
+            Downloads a list of email addresses for members who have elected to get their newsletter
+            via email. Only the email address is included.
+        </td>
+    </tr>
+    <tr>
+        <td width="30%" valign="top">
+            <a href="/Board/Roster">Active Members</a>
+        </td>
+        <td width="70%">
+            Downloads a list of all active members. The list includes home phone number, mailing
+            address, both members first and last names, and email addresses.
+        </td>
+    </tr>
+    <tr>
+        <td width="30%" valign="top">
+            <a href="/Board/EmailList">Email List</a>
+        </td>
+        <td width="70%">
+            Downloads a list of all active member email addresses.
+        </td>
+    </tr>
+</table>

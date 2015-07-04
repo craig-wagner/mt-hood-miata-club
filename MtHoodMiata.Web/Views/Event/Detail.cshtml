@@ -1,0 +1,34 @@
+﻿@model EventInfo
+@{
+    ViewBag.Menu = "_MainMenu";
+    ViewBag.Title = "MHMC: " + Model.EventName;
+}
+<table class="border" style="width: 95%" align="center">
+    <tr>
+        <td class="note" align="center">
+            RSVPs are a must for ALL events.<br />
+            Send RSVP via e-mail to <a href="mailto:activities@mthoodmiata.org?Subject=RSVP for @Model.EventName">
+                activities@mthoodmiata.org</a>
+        </td>
+    </tr>
+</table>
+<p align="center">
+    <span class="sectionHeader">
+        @if( Model.StartDate == Model.EndDate )
+        {
+            @Model.StartDate.ToString( "MMM d, yyyy" )
+        }
+        else
+        {
+            <text>
+            @Model.StartDate.ToString( "MMM d" ) -
+            @Model.EndDate.ToString( "MMM d, yyyy" )
+            </text>
+        }
+        <br />
+        @Model.EventName
+    </span>
+    <br />
+    Event Planner(s): @Model.Planner
+</p>
+@Html.Raw( Model.EventDetails )

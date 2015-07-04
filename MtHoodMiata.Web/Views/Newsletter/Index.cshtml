@@ -1,0 +1,48 @@
+﻿@model IEnumerable<string>
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Newsletters";
+}
+<p>
+    Newsletter files are stored in PDF (Portable Document Format). In order to view
+    newsletters you will need Adobe's free Acrobat Reader. You can download it using
+    the image below.</p>
+<p align="center">
+    <a target="_blank" href="http://www.adobe.com/products/acrobat/readstep2.html">
+        <img border="0" src="/images/Adobe/get_adobe_reader.gif" alt="Adobe Reader" /></a></p>
+<p>
+    You can either view the newsletter immediately by clicking on one of the following
+    links (the newsletter will open in a new window), or you can save it to your computer
+    for later viewing. In order to save it, right-click on the link and select "Save
+    Link As..." or "Save Target As..." (depending on your browser).</p>
+<table cellpadding="5" style="width: 100%">
+    <tr>
+        @{
+            int i = 0;
+            int columnCount = 5;
+
+            string[] files = @Model.OrderByDescending( s => s ).ToArray();
+        }
+        @for( i = 0; i < files.Length; i++ )
+        {
+            string file = files[i];
+
+            if( i != 0 && i % columnCount == 0 )
+            {
+            @Html.Raw( "</tr>" );
+            @Html.Raw( "<tr>" );
+            }
+
+            <td style="width: 20%; text-align: center; vertical-align: top">
+                <a target="_blank" href="/newsletters/@Path.GetFileName( file )">@Path.GetFileNameWithoutExtension( file )</a>
+            </td>
+        }
+        @while( i % columnCount != 0 )
+        {
+            <td style="width: 20%">
+                &nbsp;
+            </td>
+            i++;
+        }
+    </tr>
+</table>

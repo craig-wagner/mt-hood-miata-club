@@ -1,0 +1,126 @@
+﻿@using Google.Picasa
+@model IEnumerable<Album>
+@{
+    ViewBag.Menu = "_MainMenu";
+    ViewBag.Title = "MHMC: Photos";
+}
+<script type="text/javascript" src="../../Scripts/jquery.tmpl.min.js"></script>
+<script src="../../Scripts/jquery.prettyPhoto.js" type="text/javascript"></script>
+<link href="../../Content/prettyPhoto.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    $(document).ready(init);
+
+    function init() {
+        $(".album").click(function (e) {
+            e.preventDefault();
+            var album = $(this);
+            $("#albums").fadeOut(500, function () { showPhotos(album) });
+        });
+
+        $(".thumbnail").mousedown(function (e) {
+            $(this)._addClass("thumbnailDown");
+        });
+
+        $(".thumbnail").mouseup(function (e) {
+            $(this)._removeClass("thumbnailDown");
+        });
+    }
+
+    function showPhotos(album) {
+        jQuery.getJSON("/Photo/Album/" + album.attr("href"), function (json) {
+            $("#photos").html("");
+            $("#photosTemplate").tmpl(json).appendTo("#photos");
+            $("#backToAlbumsLink").click(function (e) {
+                $("#photos").fadeOut(500, function () {
+                    $("#albums").fadeIn(500);
+                });
+            });
+            $("a[rel^='prettyPhoto']").prettyPhoto({
+                slideshow: 3000,
+                social_tools: false
+            });
+            $("#photos").fadeIn(500);
+        })
+    }
+</script>
+<style type="text/css">
+    .thumbnail
+    {
+        position: relative;
+        border: 0px;
+        padding-bottom: 4px;
+        width: 144px;
+        height: 144px;
+        -moz-box-shadow: 5px 4px 5px rgb(150, 150, 150);
+        -webkit-box-shadow: 5px 4px 5px rgb(150, 150, 150);
+        box-shadow: 5px 4px 5px rgb(150, 150, 150);
+    }
+    
+    .thumbnailDown
+    {
+        top: 2px;
+        left: 2px;
+        -moz-box-shadow: 2px 1px 5px rgb(100, 100, 100);
+        -webkit-box-shadow: 2px 1px 5px rgb(100, 100, 100);
+        box-shadow: 2px 1px 5px rgb(100, 100, 100);
+    }
+</style>
+<div id="albums">
+    <table style="width: 720px">
+        @{
+            const int across = 4;
+
+            Album[] albums = Model.ToArray();
+            for( int i = 0; i < Math.Ceiling( albums.Length / (float)across ); i++ )
+            {
+            <tr>
+                @for( int j = 0; j < across; j++ )
+                {
+                    if( j + (i * across) < albums.Length )
+                    {
+                        Album album = albums[j + (i * across)];
+                    <td style="text-align: left; vertical-align: top; width: 180px; padding: 5px">
+                        <a href="@album.Id" class="album">
+                            <img src="@album.PicasaEntry.Media.Thumbnails[0].Url" class="thumbnail" alt="@album.Title" /></a>
+                        <br />
+                        <a href="@album.Id" class="album">@album.Title</a><br />
+                        <div class="small" style="text-align: left">
+                            Updated: @album.Updated.ToString( "MMM d, yyyy" )<br />
+                            Photos: @album.NumPhotos</div>
+                    </td>
+                    }
+                    else
+                    {
+                    <td>
+                        &nbsp;
+                    </td>
+                    }
+                }
+            </tr>
+            }
+        }
+    </table>
+</div>
+<div id="photos" style="display: none">
+</div>
+<script id="photosTemplate" type="text/x-jquery-tmpl">
+    <span class="sectionHeader">${AlbumTitle}</span>
+    <br />
+    <span class="small"><a id="slideShowLink" target="_blank" href="${AlbumUri}#slideshow">View as Slideshow</a> | <a
+        id="backToAlbumsLink" href="#">Back to Albums</a></span>
+    <br />
+    <br />
+    <table cellpadding="2">
+    <tr>
+    {{each(i, p) Photos}}
+        {{if i % 5 == 0}}
+            </tr><tr>
+        {{/if}}
+        <td style="text-align: center; vertical-align: middle">
+            <a href="${PhotoUri}" rel="prettyPhoto[album]">
+                <img src="${ThumbnailUri}" border="0" alt="${caption}" /></a>
+        </td>
+    {{/each}}
+    </tr>
+    </table>
+</script>

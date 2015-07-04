@@ -1,0 +1,93 @@
+﻿@model IEnumerable<ClassifiedAd>
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Classified Ads";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.link-delete').click(function () {
+            return confirm('Are you sure you wish to delete this ad?');
+        });
+    });
+</script>
+@if( Model.Count() == 0 )
+{
+    <text>I couldn't seem to find any ads associated with your membership. You can always
+    ad some by clicking @Html.ActionLink( "here", "Create" ).</text>
+}
+else
+{ 
+    <table class="border" style="width: 100%">
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <th>
+                &nbsp;
+            </th>
+            <th>
+                &nbsp;
+            </th>
+            <th style="width: 25%">
+                Date Placed
+            </th>
+            <th style="width: 25%">
+                Type
+            </th>
+            <th style="width: 45%">
+                Ad
+            </th>
+        </tr>
+        @foreach( ClassifiedAd ad in Model.OrderByDescending( ca => ca.AdPlacedDttm ) )
+        {
+            <tr>
+                <td>
+                    @{
+            DateTime cutOffDate = DateTime.Now.AddDays( -30 );
+            if( ad.AdPlacedDttm >= cutOffDate )
+            { 
+                        <text>Active</text>
+            }
+            else
+            {
+                        @Html.ActionLink( "Renew", "Renew", new { id = ad.ClassifiedAdId } )
+            }
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink( "Delete", "Delete",
+                        new { id = ad.ClassifiedAdId },
+                        new { @class = "link-delete" } )
+                </td>
+                <td>
+                    @Html.ActionLink( "Edit", "Edit", new { id = ad.ClassifiedAdId } )
+                </td>
+                <td>
+                    @ad.AdPlacedDttm.ToString( "MM/dd/yyyy" )
+                </td>
+                <td>
+                    @ad.ClassifiedAdType.Name
+                </td>
+                <td>
+                    @{
+               if( ad.AdText.Length > 60 )
+               {
+                        @(ad.AdText.Substring( 0, 60 ) + "...")
+               }
+               else
+               {
+                        @ad.AdText
+               }
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    <p>@Html.ActionLink( "Create Classified Ad", "Create" )</p>
+}
+@if( ViewBag.AdsChanged )
+{ 
+    <p class="note">
+        Please Note: It may take up to ten minutes for your changes to be reflected on the
+        web site.</p>
+}

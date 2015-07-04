@@ -1,0 +1,22 @@
+﻿@model MtHoodMiata.Web.Models.Membership
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Edit Membership";
+}
+<script type="text/javascript">
+    $(document).ready(init);
+
+    function init() {
+        $(".datePicker").datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+
+        $("#Member1FirstName").focus();
+    }
+</script>
+@Html.EditorForModel()
+<br />
+@Html.Partial( "_EditCars", Model )
+<p>
+    &nbsp;</p>

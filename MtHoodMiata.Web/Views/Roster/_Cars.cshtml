@@ -1,0 +1,5 @@
+﻿@model IEnumerable<CarDetail>
+@foreach( CarDetail car in Model )
+{ 
+    <text>@car.Year @car.Color.ColorName</text><br />
+}

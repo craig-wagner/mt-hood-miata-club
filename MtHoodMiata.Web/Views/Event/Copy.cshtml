@@ -1,0 +1,12 @@
+﻿@model EventInfo
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Event Copy";
+}
+<p class="attention">
+    You selected the Copy option. When you save this entry a new event will be created.</p>
+@using( Html.BeginForm() )
+{
+    @Html.ValidationSummary()
+    @Html.EditorForModel()
+}

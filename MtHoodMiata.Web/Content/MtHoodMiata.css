@@ -1,0 +1,126 @@
+a
+{
+    text-decoration: none;
+    color: Orange;
+}
+body
+{
+    font-size: 80%;
+    color: #ffffff;
+    font-family: Verdana, Tahoma, Sans-Serif;
+    background-color: #333333;
+}
+th
+{
+    text-align: left;
+}
+strong
+{
+    color: #ffff00;
+}
+legend
+{
+    color: Aqua;
+}
+table.border
+{
+    border-style: double;
+    border-color: #AAAAAA #777777 #777777 #AAAAAA;
+    border-collapse: collapse;
+}
+table.border th, table.border td
+{
+    padding: 3px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #777777;
+}
+.pageHeader
+{
+    font-size: 150%;
+    font-weight: bold;
+    font-variant: small-caps;
+    font-style: oblique;
+    text-align: left;
+    padding-left: 15px;
+    padding-bottom: 5px;
+    color: #ffff00;
+    margin-bottom: 10px;
+}
+.sectionHeader
+{
+    font-size: 110%;
+    font-weight: bold;
+    color: #ffff00;
+}
+.attention
+{
+    font-weight: bold;
+    color: Yellow;
+}
+.note
+{
+    color: Yellow;
+}
+.required
+{
+    color: #ff0000;
+    font-weight: bold;
+}
+.small
+{
+    font-size: 70%;
+    font-weight: normal;
+}
+.categoryName
+{
+    font-weight: bold;
+    text-decoration: underline;
+}
+.categoryCount
+{
+    color: #FFFF00;
+    font-weight: bold;
+}
+.longTextField
+{
+    width: 250px;
+}
+.shortTextField
+{
+    width: 100px;
+}
+.textBlock
+{
+    width: 250px;
+    height: 75px;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error
+{
+    color: #ff0000;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}

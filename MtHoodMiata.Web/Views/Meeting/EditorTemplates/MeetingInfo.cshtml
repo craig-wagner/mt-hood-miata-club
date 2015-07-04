@@ -1,0 +1,92 @@
+﻿@model MeetingInfo
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+    $(document).ready(init);
+
+    function init() {
+        CKEDITOR.replace("Notes");
+        $(".datePicker").datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+        $("#Location").focus();
+    }
+</script>
+<table cellspacing="2" cellpadding="2" width="100%" border="0">
+    <tr>
+        <td width="20%">
+            @Html.LabelFor( model => model.Location, "Location:" )
+        </td>
+        <td width="80%">
+            @Html.TextBoxFor( model => model.Location, new { maxlength = "50", style = "width: 350px" } )
+        </td>
+    </tr>
+    <tr>
+        <td width="20%">
+            @Html.LabelFor( model => model.Address, "Address:" )
+        </td>
+        <td width="80%">
+            @Html.TextBoxFor( model => model.Address, new { maxlength = 50, style = "width: 350px" } )
+        </td>
+    </tr>
+    <tr>
+        <td width="20%">
+            @Html.LabelFor( model => model.City, "City:" )
+        </td>
+        <td width="80%">
+            @Html.TextBoxFor( model => model.City, new { maxlength = 50, style = "width: 350px" } )
+        </td>
+    </tr>
+    <tr>
+        <td width="20%">
+            @Html.LabelFor( model => model.State, "State:" )
+        </td>
+        <td width="80%">
+            @{
+                IEnumerable<SelectListItem> states = new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Oregon", Value = "OR" },
+                    new SelectListItem { Text = "Washington", Value = "WA" }
+                };
+            }
+            @Html.DropDownListFor( model => model.State, states, new { style = "width: 100px" } )
+        </td>
+    </tr>
+    <tr>
+        <td width="20%">
+            @Html.LabelFor( model => model.Phone, "Phone:" )
+        </td>
+        <td width="80%">
+            @Html.EditorFor( model => model.Phone, "Phone" )
+        </td>
+    </tr>
+    <tr>
+        <td width="20%">
+            @Html.LabelFor( model => model.MapUrl, "Map URL:" )
+        </td>
+        <td width="80%">
+            @Html.TextBoxFor( model => model.MapUrl, new { maxlength = 500, style = "width: 350px" } )
+        </td>
+    </tr>
+    <tr>
+        <td width="20%">
+            @Html.LabelFor( model => model.MeetingDate, "Meeting Date:" )
+        </td>
+        <td width="80%">
+            @Html.EditorFor( model => model.MeetingDate )
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Html.TextAreaFor( model => model.Notes )
+        </td>
+    </tr>
+    <tr>
+        <td align="center" colspan="2">
+            <button type="submit">
+                Save</button>
+            <button type="button" onclick="window.location.href='/Meeting/List?sortdir=DESC'">
+                Cancel</button>
+        </td>
+    </tr>
+</table>

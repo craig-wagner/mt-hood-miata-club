@@ -1,0 +1,93 @@
+﻿@model MtHoodMiata.Web.Models.Membership
+<script type="text/javascript">
+    $(document).ready(init);
+
+    function init() {
+        var $dialog = $("#dialog-confirm").dialog({
+            title: "Delete Car",
+            autoOpen: false,
+            resizable: false,
+            width: 400,
+            modal: true
+        });
+
+        $(".link-delete").click(function (e) {
+            e.preventDefault();
+            var targetUrl = $(this).attr("href");
+
+            $("#dialog-confirm").dialog({
+                buttons: {
+                    "Yes": function () {
+                        window.location.href = targetUrl;
+                    },
+                    "No": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $dialog.dialog("open");
+            $(".ui-dialog-buttonpane button").focus();
+        });
+    }
+</script>
+<div id="dialog-confirm">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        This car will be permanently deleted and cannot be recovered. Are you sure?</p>
+</div>
+@if( Model.CarDetails.Count == 0 )
+{
+    <p>
+        No cars? You could always buy one from the @Html.ActionLink( "Classified Ads", "Index", "Ad" ).
+        If you've already got one go ahead and @Html.ActionLink( "Add", "Create", "Car", new { id = Model.MembershipId, returnUrl = Request.Path }, null )
+        it (or them if you have a bunch).
+    </p>
+}
+else
+{ 
+    <table class="border">
+        <thead>
+            <tr>
+                <th style="width: 10%">
+                    Year
+                </th>
+                <th style="width: 15%">
+                    Nickname
+                </th>
+                <th style="width: 15%">
+                    License
+                </th>
+                <th style="width: 25%">
+                    Color
+                </th>
+                <th style="width: 10%">
+                </th>
+                <td style="width: 10%; text-align: center">
+                    @Html.ActionLink( "Add", "Create", "Car", new { id = Model.MembershipId, returnUrl = Request.Path }, null )
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach( CarDetail car in Model.CarDetails )
+            {
+                <tr>
+                    <td>@car.Year
+                    </td>
+                    <td>@car.Nickname
+                    </td>
+                    <td>@car.License
+                    </td>
+                    <td>@car.Color.ColorName
+                    </td>
+                    <td style="text-align: center">
+                        @Html.ActionLink( "Delete", "Delete", "Car", new { id = car.CarDetailId, returnUrl = Request.Path }, new { @class = "link-delete" } )
+                    </td>
+                    <td style="text-align: center">
+                        @Html.ActionLink( "Edit", "Edit", "Car", new { id = car.CarDetailId, returnUrl = Request.Path }, null )
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,132 @@
+﻿@model IEnumerable<EventInfo>
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Event Maintenance";
+}
+<script type="text/javascript">
+    $(document).ready(init);
+
+    function init() {
+        $("#accordion").accordion({
+            collapsible: true,
+            autoHeight: true,
+            active: @(ViewBag.InSearchMode ? "0" : "false")
+        });
+
+        var $dialog = $("#dialog-confirm").dialog({
+            title: "Delete Event",
+            autoOpen: false,
+            resizable: false,
+            width: 400,
+            modal: true
+        });
+
+        $(".link-delete").click(function (e) {
+            e.preventDefault();
+            var targetUrl = $(this).attr("href");
+
+            $("#dialog-confirm").dialog({
+                buttons: {
+                    "Yes": function () {
+                        window.location.href = targetUrl;
+                    },
+                    "No": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $dialog.dialog("open");
+            $(".ui-dialog-buttonpane button").focus();
+        });
+    }
+</script>
+<style type="text/css">
+    .startDate
+    {
+        vertical-align: top;
+        width: 20%;
+    }
+    .name
+    {
+        vertical-align: top;
+        width: 56%;
+    }
+    .action
+    {
+        vertical-align: top;
+        text-align: center;
+        width: 8%;
+    }
+</style>
+<div id="dialog-confirm">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        This event will be permanently deleted and cannot be recovered. Are you sure?</p>
+</div>
+<div id="accordion">
+    <h3>
+        <a href="#">Search</a></h3>
+    <div>
+        Enter a search string in the field below and click Search to find all events with
+        the value entered in either the Name, Details, or Planner.<br />
+        <br />
+        @using( Html.BeginForm() )
+        {
+            @Html.Label( "searchString", "Search Criteria:" )
+            <text>&nbsp;</text>
+            @Html.TextBox( "searchString" )
+            <button type="submit">
+                Search</button>
+            <button type="button" onclick="window.location.href='/Event/List?sortdir=DESC'">
+                Clear</button>
+        }
+    </div>
+</div>
+<p class="attention">
+    Please note that changes to event information may take up to ten minutes to appear
+    on the site. This is because the pages are cached for performance reasons.</p>
+@{
+    var grid = new WebGrid( Model,
+        defaultSort: "StartDate",
+        rowsPerPage: 20,
+        canSort: !ViewBag.InSearchMode );
+    @grid.GetHtml(
+        tableStyle: "border",
+        htmlAttributes: new { width = "100%" },
+        mode: WebGridPagerModes.All,
+        columns: grid.Columns(
+            grid.Column( "StartDate", "Start Date",
+                style: "startDate",
+                format: @<text>@item.StartDate.ToString( "yyyy/MM/dd" )</text> ),
+            grid.Column( "EventName", "Event Name",
+                style: "name" ),
+            grid.Column( header: String.Empty,
+                style: "action",
+                format: @<text>@Html.ActionLink( "Copy", "Copy", new { id = item.EventId } )</text> ),
+            grid.Column( header: String.Empty,
+                style: "action",
+                format: @<text>@Html.ActionLink( "Delete", "Delete", new { id = item.EventId }, new { @class = "link-delete" } )</text> ),
+            grid.Column( header: String.Empty,
+                style: "action",
+                format: @<text>@Html.ActionLink( "Edit", "Edit", new { id = item.EventId } )</text> ) ) );
+}
+@{
+    string sortColumn = String.IsNullOrWhiteSpace( grid.SortColumn ) ? "StartDate" : grid.SortColumn;
+}
+<script type="text/javascript">
+    $('thead > tr > th > a[href*="sort=@sortColumn"]')
+        .parent()
+        .append('&nbsp;')
+        .append('@(grid.SortDirection == SortDirection.Ascending ? Html.Raw( "<img src=\"/images/sort-ascending.png\" />" ) : Html.Raw( "<img src=\"/images/sort-descending.png\" />" ))');
+    $('tfoot > tr > td')
+        .first()
+        .attr('colspan', 4);
+    $('tfoot > tr')
+        .append('<td style="text-align: center">@Html.ActionLink( "Add", "Create" )</td>');
+    $('thead > tr > th')
+        .last()
+        .css("font-weight", "normal")
+        .css("text-align", "center")
+        .append('@Html.ActionLink( "Add", "Create" )');
+</script>

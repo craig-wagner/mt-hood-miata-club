@@ -1,0 +1,219 @@
+﻿@model UploadPhotosViewModel
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Upload Photos";
+}
+<link href="@Url.Content( "~/Scripts/uploadify/uploadify.css" )" rel="stylesheet" type="text/css" />
+<script src="@Url.Content( "~/Scripts/uploadify/swfobject.js" )" type="text/javascript"></script>
+<script src="@Url.Content( "~/Scripts/uploadify/jquery.uploadify.v2.1.4.min.js" )" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(init);
+
+    function init() {
+        $("#introNext").click(function () {
+            var albumId = $("#AlbumId").val();
+
+            if (albumId == "") {
+                $("#intro").fadeOut(500, function () {
+                    $("#newAlbum").fadeIn(500);
+                })
+            }
+            else {
+                $("#intro").fadeOut(500, function () {
+                    $("#uploadPhotos").fadeIn(500);
+                })
+            }
+        });
+
+        $("#newAlbumNext").click(function () {
+            var type = $("input[@@name=rbType]:checked").val();
+
+            $("#newAlbum").fadeOut(500, function () { $("#" + type + "Photos").fadeIn(500); });
+        });
+
+        $("#newAlbumBack").click(function () {
+            $("#newAlbum").fadeOut(500, function () {
+                $("#intro").fadeIn(500);
+            })
+        });
+
+        $("#eventPhotosNext").click(function () {
+            $("#eventPhotos").fadeOut(500, function () {
+                $("#uploadPhotos").fadeIn(500);
+            })
+        });
+
+        $("#eventPhotosBack").click(function () {
+            $("#eventPhotos").fadeOut(500, function () {
+                $("#newAlbum").fadeIn(500);
+            })
+        });
+
+        $("#otherPhotosNext").click(function () {
+            $("#otherPhotos").fadeOut(500, function () {
+                $("#uploadPhotos").fadeIn(500);
+            })
+        });
+
+        $("#otherPhotosBack").click(function () {
+            $("#otherPhotos").fadeOut(500, function () {
+                $("#newAlbum").fadeIn(500);
+            })
+        });
+
+        $("#uploadPhotosBack").click(function () {
+            $("#uploadPhotos").fadeOut(500, function () {
+                $("#intro").fadeIn(500);
+            })
+        });
+
+        $("#EventId").change(function () {
+            setButtonState($("#eventPhotosNext"), $(this).val().length > 0);
+        });
+
+        $("#AlbumName").keyup(function () {
+            setButtonState($("#otherPhotosNext"), $(this).val().length > 0);
+        });
+
+        $("#fileUploader").uploadify({
+            "uploader": '@Url.Content( "~/Scripts/uploadify/uploadify.swf" )',
+            "script": '@Url.Content( "~/FileUploadHandler.ashx" )',
+            "cancelImg": '@Url.Content( "~/Scripts/uploadify/cancel.png" )',
+            "buttonImg": '@Url.Content( "~/Scripts/uploadify/select.png" )',
+            "folder": "/uploads",
+            "fileExt": "*.jpg;*.gif;*.png",
+            "fileDesc": "Image Files (.jpg, .gif, .png)",
+            "queueID": "uploadQueue",
+            "wmode": "transparent",
+            "hideButton": true,
+            "multi": true,
+            "onCancel": function (event, id, fileObj, data) {
+                if (data.fileCount == 0) {
+                    $("#statusMessage").text("");
+                }
+                else {
+                    $("#statusMessage").text(data.fileCount + " files awaiting upload.");
+                }
+                setButtonState($("#uploadFiles"), data.fileCount > 0);
+            },
+            "onSelectOnce": function (event, data) {
+                $("#statusMessage").text(data.fileCount + " files awaiting upload.");
+                setButtonState($("#uploadFiles"), data.fileCount > 0);
+            },
+            "onComplete": function (event, id, fileObj, response, data) {
+                $("#statusMessage").text(data.fileCount + " files awaiting upload.");
+            },
+            "onAllComplete": function (event, data) {
+                window.location.href = "/Photo/Index";
+            }
+        });
+
+        $("#uploadFiles").click(function () {
+            var scriptData = {
+                AlbumId: $("#AlbumId").val(),
+                PhotoType: $("input:radio[name=photoType]:checked").val(),
+                EventId: $("#EventId").val(),
+                AlbumName: encodeURIComponent($("#AlbumName").val())
+            };
+
+            setButtonState($("#uploadFiles"), false);
+
+            var fileUploader = $("#fileUploader");
+            fileUploader.uploadifySettings("scriptData", scriptData, true);
+            fileUploader.uploadifyUpload();
+        });
+
+        setButtonState($("#otherPhotosNext"), $("#AlbumName").val().length > 0);
+        setButtonState($("#eventPhotosNext"), $("#EventId").val().length > 0);
+        setButtonState($("#uploadFiles"), false);
+    }
+
+    function setButtonState(button, enabled) {
+        if (enabled) {
+            button.removeAttr("disabled");
+        }
+        else {
+            button.attr("disabled", "disabled");
+        }
+    }
+</script>
+<div id="intro">
+    <p>
+        So you have some photos you want to share with the club? Great! Let's make sure
+        they get put in the right place. Please ensure they are family friendly photos only! To manage our space be selective, limit your upload to 20<p> 
+		
+	<p>Contact the <a href="mailto:webmaster@mthoodmiata.org?Subject=MHMC%20Web%20Inquiry">webmaster@mthoodmiata.org</a> to report any concerns. 
+		</p>
+    <p>
+        Here we go...The first thing you need to do is check whether an album has already been created
+        for the photos you want to upload. Check the list below and select the most appropriate
+        album. If you don't see anything that fits then create a new one.</p>
+    <p>
+        Add photos to @Html.DropDownListFor( model => model.AlbumId, new SelectList( Model.Albums, "Id", "Title" ) )</p>
+    <button id="introBack" type="button" disabled="disabled">
+        &lt;&lt; Back</button>&nbsp;
+    <button id="introNext" type="button">
+        Next &gt;&gt;</button>
+</div>
+<div id="newAlbum" style="display: none">
+    <p>
+        So you have some photos you want to share with the club? Great! Let's make sure
+        they get put in the right place.</p>
+    <p>
+        Are your photos...</p>
+    <div style="margin-left: 20px">
+        @Html.RadioButton( "photoType", "event", true, new { id = "photoTypeEvent" } )<label
+            for="photoTypeEvent" style="cursor: hand">
+            from an event?</label><br />
+        @Html.RadioButton( "photoType", "other", new { id = "photoTypeOther" } )<label for="photoTypeOther"
+            style="cursor: hand">
+            not event-related (e.g. pictures of your car)?</label><br />
+        <br />
+    </div>
+    <button id="newAlbumBack" type="button">
+        &lt;&lt; Back</button>&nbsp;
+    <button id="newAlbumNext" type="button">
+        Next &gt;&gt;</button>
+</div>
+<div id="eventPhotos" style="display: none">
+    <p>
+        Okay, you've got some photos from an event. Go ahead and select the event from the
+        list. They're sorted so the most recent events are at the top.</p>
+    <p>@Html.DropDownListFor( model => model.EventId, Model.Events )</p>
+    <button id="eventPhotosBack" type="button">
+        &lt;&lt; Back</button>&nbsp;
+    <button id="eventPhotosNext" type="button">
+        Next &gt;&gt;</button>
+</div>
+<div id="otherPhotos" style="display: none">
+    <p>
+        Okay, we'll create a new album for you. First we need a title.</p>
+    <p>
+        Album Title: @Html.TextBoxFor( model => model.AlbumName, new { @class = "longTextField" } )</p>
+    <button id="otherPhotosBack" type="button">
+        &lt;&lt; Back</button>&nbsp;
+    <button id="otherPhotosNext" type="button">
+        Next &gt;&gt;</button>
+</div>
+<div id="uploadPhotos" style="display: none">
+    <p>
+        Click the "Select Files" button below to select your files. You can select multiple
+        files to be uploaded at once by holding down the Control (Ctrl) key while clicking
+        on each file. If you wish to remove a file from the upload queue click the
+        <img src="../../Scripts/uploadify/cancel.png" style="top: 3px; position: relative"
+            alt="X" />
+        to the right of the file name.</p>
+    <p>
+        After you have selected the files you wish to upload click the "Upload Files" button
+        and wait. Once the upload has completed you will be transferred to the photo albums
+        so you can see your work in all its glory.</p>
+    <div id="statusMessage">
+    </div>
+    <br />
+    <input id="fileUploader" name="fileUploader" type="file" />
+    <div id="uploadQueue">
+    </div>
+    <br />
+    <button id="uploadFiles">
+        Upload Files</button>
+</div>

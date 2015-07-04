@@ -1,0 +1,384 @@
+﻿@model MembershipApplicationViewModel
+@{
+    ViewBag.Menu = "_MainMenu";
+    ViewBag.Title = "MHMC: Membership Application";
+}
+<style type="text/css">
+    .labelColumn
+    {
+        white-space: nowrap;
+        text-align: right;
+        width: 20%;
+    }
+    .dataColumn
+    {
+        width: 80%;
+    }
+</style>
+@using( Html.BeginForm() )
+{ 
+    @Html.ValidationSummary( "Please correct the following errors and resubmit the application." )
+
+    <p align="center">
+        Thank you for your interest in the Mt. Hood Miata Club. We offer two methods for
+        you to submit your application and dues for membership. Please complete the form
+        below, and follow the instructions at the bottom of the screen for your submission
+        options.
+    </p>
+    <p align="center">
+        Please complete as many fields as you can. Fields marked with an asterisk (<span
+            class="required">*</span>) are required.
+    </p>
+
+    <fieldset>
+        <legend>&nbsp;Primary Member Information&nbsp;</legend>
+        <table width="100%" border="0">
+            <tr>
+                <td class="labelColumn">
+                    <span class="required">* </span>@Html.LabelFor( model => model.Member1FirstName ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Member1FirstName, new { @class = "longTextField", maxlength = "50" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    <span class="required">* </span>@Html.LabelFor( model => model.Member1LastName ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Member1LastName, new { @class = "longTextField", maxlength = "50" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    <span class="required">* </span>@Html.LabelFor( model => model.Member1Email ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Member1Email, new { @class = "longTextField", maxlength = "50" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Member1CellPhone ):
+                </td>
+                <td class="dataColumn">
+                    @Html.EditorFor( model => model.Member1CellPhone, "Phone" )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Member1WorkPhone ):
+                </td>
+                <td class="dataColumn">
+                    @Html.EditorFor( model => model.Member1WorkPhone, "Phone" )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Member1Dob ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Member1Dob, new { @class = "shortTextField", maxlength = "5" } )
+                    &nbsp;<span class="small">mm/dd</span>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <br />
+    <fieldset>
+        <legend>&nbsp;Significant Other Information&nbsp;</legend>
+        <table width="100%" border="0">
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Member2FirstName ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Member2FirstName, new { @class = "longTextField", maxlength = "50" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Member2LastName ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Member2LastName, new { @class = "longTextField", maxlength = "50" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Member2Email ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Member2Email, new { @class = "longTextField", maxlength = "50" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Member2CellPhone ):
+                </td>
+                <td class="dataColumn">
+                    @Html.EditorFor( model => model.Member2CellPhone, "Phone" )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Member2WorkPhone ):
+                </td>
+                <td class="dataColumn">
+                    @Html.EditorFor( model => model.Member2WorkPhone, "Phone" )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Member2Dob ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Member2Dob, new { @class = "shortTextField", maxlength = "5" } )
+                    &nbsp;<span class="small">mm/dd</span>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <br />
+    <fieldset>
+        <legend>&nbsp;Contact Information&nbsp;</legend>
+        <table width="100%" border="0">
+            <tr>
+                <td class="labelColumn">
+                    <span class="required">* </span>@Html.LabelFor( model => model.AddressLine1 ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.AddressLine1, new { @class = "longTextField", maxlength = "50" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    &nbsp;
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.AddressLine2, new { @class = "longTextField", maxlength = "50" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    <span class="required">* </span>@Html.LabelFor( model => model.City ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.City, new { @class = "longTextField", maxlength = "50" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    <span class="required">* </span>@Html.LabelFor( model => model.State ):
+                </td>
+                <td style="height: 26px" class="dataColumn" height="26">
+                    @Html.TextBoxFor( model => model.State, new { @class = "shortTextField", maxlength = "2" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    <span class="required">* </span>@Html.LabelFor( model => model.Zip ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Zip, new { @class = "shortTextField", maxlength = "10" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.HomePhone ):
+                </td>
+                <td class="dataColumn">
+                    @Html.EditorFor( model => model.HomePhone, "Phone" )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.WeddingAnniversaryDate ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.WeddingAnniversaryDate, new { @class = "shortTextField", maxlength = "5" } )
+                    &nbsp;<span class="small">mm/dd</span>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <br />
+    <fieldset>
+        <legend>&nbsp;Miata Information&nbsp;</legend>
+        <table width="100%" border="0">
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Car1.Year ):
+                </td>
+                <td class="dataColumn">
+                    @Html.DropDownListFor( model => model.Car1.Year, new SelectList( Model.ModelYears as IEnumerable<int> ), new { style = "width: 65px" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Car1.Color ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Car1.Color, new { @class = "longTextField", maxlength = "50" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Car1.LicensePlate ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Car1.LicensePlate, new { @class = "shortTextField", maxlength = "8" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Car1.Nickname ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Car1.Nickname, new { @class = "longTextField", maxlength = "50" } )
+                </td>
+            </tr>
+            <tr>
+                <td valign="top" class="labelColumn">
+                    @Html.LabelFor( model => model.Car1.Modifications ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextAreaFor( model => model.Car1.Modifications, new { @class = "textBlock" } )
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Car2.Year ):
+                </td>
+                <td class="dataColumn">
+                    @Html.DropDownListFor( model => model.Car2.Year, new SelectList( Model.ModelYears as IEnumerable<int> ), new { style = "width: 65px" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Car2.Color ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Car2.Color, new { @class = "longTextField", maxlength = "50" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Car2.LicensePlate ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Car2.LicensePlate, new { @class = "shortTextField", maxlength = "8" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Car2.Nickname ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Car2.Nickname, new { @class = "longTextField", maxlength = "50" } )
+                </td>
+            </tr>
+            <tr>
+                <td valign="top" class="labelColumn">
+                    @Html.LabelFor( model => model.Car2.Modifications ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextAreaFor( model => model.Car2.Modifications, new { @class = "textBlock" } )
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Car3.Year ):
+                </td>
+                <td class="dataColumn">
+                    @Html.DropDownListFor( model => model.Car3.Year, new SelectList( Model.ModelYears as IEnumerable<int> ), new { style = "width: 65px" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Car3.Color ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Car3.Color, new { @class = "longTextField", maxlength = "50" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Car3.LicensePlate ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Car3.LicensePlate, new { @class = "shortTextField", maxlength = "8" } )
+                </td>
+            </tr>
+            <tr>
+                <td class="labelColumn">
+                    @Html.LabelFor( model => model.Car3.Nickname ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextBoxFor( model => model.Car3.Nickname, new { @class = "longTextField", maxlength = "50" } )
+                </td>
+            </tr>
+            <tr>
+                <td valign="top" class="labelColumn">
+                    @Html.LabelFor( model => model.Car3.Modifications ):
+                </td>
+                <td class="dataColumn">
+                    @Html.TextAreaFor( model => model.Car3.Modifications, new { @class = "textBlock" } )
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <br />
+    <fieldset>
+        <legend>&nbsp;Comments&nbsp;</legend>Use this area for any general comments or quetions
+        you may have for our Membership Director.<br />
+        @Html.TextAreaFor( model => model.Comments, new { rows = "10", style = "width: 100%" } )
+    </fieldset>
+    <p align="center">
+        We offer two options for the submission of your application and dues.</p>
+    <table style="border-color: #cccccc" cellpadding="6" width="100%" border="2">
+        <tr>
+            <td valign="top" align="center" width="50%">
+                <p style="font-size: 90%; font-weight: bold; text-align: center">
+                    Use this option if you want to electronically submit your application and pay now
+                    using your checking account or credit card.</p>
+                <p align="center">
+                    <img height="33" src="/images/PayPal.gif" width="88" alt="PayPal Logo" /></p>
+                <p align="center">
+                    <img height="26" src="/images/creditcards.gif" width="151" alt="Credit Cards" /></p>
+                <p align="center">
+                    <button type="submit" name="btnSubmit" value="paypal">
+                        Pay with PayPal</button>
+                </p>
+            </td>
+            <td valign="top" align="center" width="50%">
+                <p style="font-size: 90%; font-weight: bold">
+                    Use this option if you want to print a paper copy of your application and mail it
+                    along with your check for $30.00 to:
+                </p>
+                <p style="font-size: 110%; font-weight: bold">
+                    Mt. Hood Miata Club<br />
+                    P.O. Box 396<br />
+                    Portland, Oregon 97207
+                </p>
+                <p>
+                    <button type="submit" name="btnSubmit" value="print">
+                        Print Application</button>
+                </p>
+            </td>
+        </tr>
+    </table>
+    <p class="sectionHeader" align="center">
+        Thank You!
+    </p>
+}

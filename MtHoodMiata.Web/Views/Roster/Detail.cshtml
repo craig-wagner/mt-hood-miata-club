@@ -1,0 +1,70 @@
+﻿@model MtHoodMiata.Web.Models.Membership
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Member Details";
+}
+<table cellspacing="4" cellpadding="2" width="100%" border="0">
+    <tr>
+        <td width="50%">
+            <p>
+                @Model.Member1FirstName @Model.Member1LastName
+                <br />
+                <a href="mailto:@Model.Member1Email">@Model.Member1Email</a>
+            </p>
+        </td>
+        <td width="50%">
+            @Model.Member2FirstName @Model.Member2LastName
+            <br />
+            <a href="mailto:@Model.Member2Email">@Model.Member2Email</a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Model.AddressLine1<br />
+            @if( !String.IsNullOrWhiteSpace( @Model.AddressLine2 ) )
+            { 
+                @Model.AddressLine2<br />
+            }
+            @Model.City, @Model.State @Model.Zip<br />
+            <br />
+            @if( !String.IsNullOrWhiteSpace( Model.HomePhone ) )
+            { 
+                @Html.PhoneNumber( Model.HomePhone );
+            }
+        </td>
+    </tr>
+</table>
+<br />
+<table class="border">
+    <thead>
+        <th>
+            Year
+        </th>
+        <th>
+            Color
+        </th>
+        <th>
+            Nickname
+        </th>
+        <th>
+            License
+        </th>
+    </thead>
+    @foreach( CarDetail car in @Model.CarDetails )
+    {
+        <tr>
+            <td>@car.Year
+            </td>
+            <td>@car.Color.ColorName
+            </td>
+            <td>@car.Nickname
+            </td>
+            <td>@car.License
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">@car.Mods
+            </td>
+        </tr>
+    }
+</table>

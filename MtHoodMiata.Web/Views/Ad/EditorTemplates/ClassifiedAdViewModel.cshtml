@@ -1,0 +1,33 @@
+﻿@model ClassifiedAdViewModel
+<table width="100%">
+    <tr>
+        <td>
+            @Html.LabelFor( model => model.ClassifiedAdTypeCode, "Type" )
+        </td>
+        <td>
+            @Html.DropDownListFor(
+                model => model.ClassifiedAdTypeCode,
+                new SelectList( Model.AdTypes, "ClassifiedAdTypeCode", "Name" ) )
+        </td>
+    </tr>
+    <tr>
+        <td valign="top">
+            @Html.LabelFor( model => model.AdText, "Ad Text:" )
+        </td>
+        <td>
+            @Html.TextAreaFor( model => model.AdText, 10, 50, null )
+        </td>
+    </tr>
+    <tr>
+        <td>
+            &nbsp;
+        </td>
+        <td>
+            <button type="submit">
+                Save</button>
+            &nbsp;
+            <button type="button" onclick="window.location.href='/Ad/List'">
+                Cancel</button>
+        </td>
+    </tr>
+</table>

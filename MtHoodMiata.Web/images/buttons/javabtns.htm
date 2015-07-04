@@ -1,0 +1,178 @@
+
+<!-- THIS SECTION GOES IN BETWEEN THE HEAD TAGS -->
+
+<script language="JavaScript">
+<!--
+  window.onerror = null;
+	browserName=navigator.appName;
+	version="";
+	browserVer=parseInt(navigator.appVersion);
+
+	if(browserName=="Netscape" && browserVer >=3) version ="n3";
+	if(browserName=="Microsoft Internet Explorer" && browserVer >=4) version="n3";
+	if (version=="n3")
+	{
+	<!-- BUTTON CODES GO HERE -->
+
+        btn_uploadphotos_off=new Image(139, 24);
+        btn_uploadphotos_off.src="btn_uploadphotos.gif";
+        btn_uploadphotos_over=new Image(139, 24);
+        btn_uploadphotos_over.src="btn_uploadphotos_over.gif";
+
+        btn_memberonlyhome_off=new Image(139, 24);
+        btn_memberonlyhome_off.src="btn_memberonlyhome.gif";
+        btn_memberonlyhome_over=new Image(139, 24);
+        btn_memberonlyhome_over.src="btn_memberonlyhome_over.gif";
+
+        btn_editmembership_off=new Image(139, 24);
+        btn_editmembership_off.src="btn_editmembership.gif";
+        btn_editmembership_over=new Image(139, 24);
+        btn_editmembership_over.src="btn_editmembership_over.gif";
+
+        btn_changepassword_off=new Image(139, 24);
+        btn_changepassword_off.src="btn_changepassword.gif";
+        btn_changepassword_over=new Image(139, 24);
+        btn_changepassword_over.src="btn_changepassword_over.gif";
+
+        btn_logout_off=new Image(139, 24);
+        btn_logout_off.src="btn_logout.gif";
+        btn_logout_over=new Image(139, 24);
+        btn_logout_over.src="btn_logout_over.gif";
+
+        btn_boardonly_off=new Image(139, 24);
+        btn_boardonly_off.src="btn_boardonly.gif";
+        btn_boardonly_over=new Image(139, 24);
+        btn_boardonly_over.src="btn_boardonly_over.gif";
+
+        btn_constitution_off=new Image(139, 24);
+        btn_constitution_off.src="btn_constitution.gif";
+        btn_constitution_over=new Image(139, 24);
+        btn_constitution_over.src="btn_constitution_over.gif";
+
+        btn_newsletter_off=new Image(139, 24);
+        btn_newsletter_off.src="btn_newsletter.gif";
+        btn_newsletter_over=new Image(139, 24);
+        btn_newsletter_over.src="btn_newsletter_over.gif";
+
+        btn_roster_off=new Image(139, 24);
+        btn_roster_off.src="btn_roster.gif";
+        btn_roster_over=new Image(139, 24);
+        btn_roster_over.src="btn_roster_over.gif";
+
+        btn_membersonly_off=new Image(139, 24);
+        btn_membersonly_off.src="btn_membersonly.gif";
+        btn_membersonly_over=new Image(139, 24);
+        btn_membersonly_over.src="btn_membersonly_over.gif";
+
+        btn_vendors_off=new Image(139, 24);
+        btn_vendors_off.src="btn_vendors.gif";
+        btn_vendors_over=new Image(139, 24);
+        btn_vendors_over.src="btn_vendors_over.gif";
+
+        btn_otherclubs_off=new Image(139, 24);
+        btn_otherclubs_off.src="btn_otherclubs.gif";
+        btn_otherclubs_over=new Image(139, 24);
+        btn_otherclubs_over.src="btn_otherclubs_over.gif";
+
+        btn_clubapparel_off=new Image(139, 24);
+        btn_clubapparel_off.src="btn_clubapparel.gif";
+        btn_clubapparel_over=new Image(139, 24);
+        btn_clubapparel_over.src="btn_clubapparel_over.gif";
+
+        btn_classifieds_off=new Image(139, 24);
+        btn_classifieds_off.src="btn_classifieds.gif";
+        btn_classifieds_over=new Image(139, 24);
+        btn_classifieds_over.src="btn_classifieds_over.gif";
+
+        btn_techtalk_off=new Image(139, 24);
+        btn_techtalk_off.src="btn_techtalk.gif";
+        btn_techtalk_over=new Image(139, 24);
+        btn_techtalk_over.src="btn_techtalk_over.gif";
+
+        btn_photoalbums_off=new Image(139, 24);
+        btn_photoalbums_off.src="btn_photoalbums.gif";
+        btn_photoalbums_over=new Image(139, 24);
+        btn_photoalbums_over.src="btn_photoalbums_over.gif";
+
+        btn_meetings_off=new Image(139, 24);
+        btn_meetings_off.src="btn_meetings.gif";
+        btn_meetings_over=new Image(139, 24);
+        btn_meetings_over.src="btn_meetings_over.gif";
+
+        btn_events_off=new Image(139, 24);
+        btn_events_off.src="btn_events.gif";
+        btn_events_over=new Image(139, 24);
+        btn_events_over.src="btn_events_over.gif";
+
+        btn_contactus_off=new Image(139, 24);
+        btn_contactus_off.src="btn_contactus.gif";
+        btn_contactus_over=new Image(139, 24);
+        btn_contactus_over.src="btn_contactus_over.gif";
+
+        btn_joinus_off=new Image(139, 24);
+        btn_joinus_off.src="btn_joinus.gif";
+        btn_joinus_over=new Image(139, 24);
+        btn_joinus_over.src="btn_joinus_over.gif";
+
+        btn_clubinfo_off=new Image(139, 24);
+        btn_clubinfo_off.src="btn_clubinfo.gif";
+        btn_clubinfo_over=new Image(139, 24);
+        btn_clubinfo_over.src="btn_clubinfo_over.gif";
+
+        btn_home_off=new Image(139, 24);
+        btn_home_off.src="btn_home.gif";
+        btn_home_over=new Image(139, 24);
+        btn_home_over.src="btn_home_over.gif";
+
+	}
+
+	function ActiveOverImage(ImageName)
+	{
+		if (version == "n3")
+		{
+			imgActive = eval(ImageName + "_over.src");
+			document [ImageName].src=imgActive;
+		}
+	}
+
+	function InActiveImage(ImageName)
+	{       
+		if (version == "n3") 
+		{
+			imgInActive = eval(ImageName + "_off.src");
+			document [ImageName].src = imgInActive;
+		}
+	}
+
+
+//-->
+</script>
+
+<!-- THIS SECTION GOES IN YOUR HTML BODY STATEMENT -->
+
+
+<table id="mytable"><tr><td>
+<a href="" onMouseOver="ActiveOverImage('btn_home')" onMouseout="InActiveImage('btn_home')"><img src="btn_home.gif" width="139" height="24" border="0" alt="Home" name="btn_home"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_clubinfo')" onMouseout="InActiveImage('btn_clubinfo')"><img src="btn_clubinfo.gif" width="139" height="24" border="0" alt="Club Info" name="btn_clubinfo"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_joinus')" onMouseout="InActiveImage('btn_joinus')"><img src="btn_joinus.gif" width="139" height="24" border="0" alt="Join Us" name="btn_joinus"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_contactus')" onMouseout="InActiveImage('btn_contactus')"><img src="btn_contactus.gif" width="139" height="24" border="0" alt="Contact Us" name="btn_contactus"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_events')" onMouseout="InActiveImage('btn_events')"><img src="btn_events.gif" width="139" height="24" border="0" alt="Events" name="btn_events"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_meetings')" onMouseout="InActiveImage('btn_meetings')"><img src="btn_meetings.gif" width="139" height="24" border="0" alt="Meetings" name="btn_meetings"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_photoalbums')" onMouseout="InActiveImage('btn_photoalbums')"><img src="btn_photoalbums.gif" width="139" height="24" border="0" alt="Photo Albums" name="btn_photoalbums"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_techtalk')" onMouseout="InActiveImage('btn_techtalk')"><img src="btn_techtalk.gif" width="139" height="24" border="0" alt="Tech Talk" name="btn_techtalk"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_classifieds')" onMouseout="InActiveImage('btn_classifieds')"><img src="btn_classifieds.gif" width="139" height="24" border="0" alt="Classifieds" name="btn_classifieds"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_clubapparel')" onMouseout="InActiveImage('btn_clubapparel')"><img src="btn_clubapparel.gif" width="139" height="24" border="0" alt="Club Apparel" name="btn_clubapparel"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_otherclubs')" onMouseout="InActiveImage('btn_otherclubs')"><img src="btn_otherclubs.gif" width="139" height="24" border="0" alt="Other Clubs" name="btn_otherclubs"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_vendors')" onMouseout="InActiveImage('btn_vendors')"><img src="btn_vendors.gif" width="139" height="24" border="0" alt="Vendors" name="btn_vendors"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_membersonly')" onMouseout="InActiveImage('btn_membersonly')"><img src="btn_membersonly.gif" width="139" height="24" border="0" alt="Members Only" name="btn_membersonly"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_roster')" onMouseout="InActiveImage('btn_roster')"><img src="btn_roster.gif" width="139" height="24" border="0" alt="Roster" name="btn_roster"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_newsletter')" onMouseout="InActiveImage('btn_newsletter')"><img src="btn_newsletter.gif" width="139" height="24" border="0" alt="Newsletter" name="btn_newsletter"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_constitution')" onMouseout="InActiveImage('btn_constitution')"><img src="btn_constitution.gif" width="139" height="24" border="0" alt="Constitution" name="btn_constitution"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_boardonly')" onMouseout="InActiveImage('btn_boardonly')"><img src="btn_boardonly.gif" width="139" height="24" border="0" alt="Board Only" name="btn_boardonly"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_logout')" onMouseout="InActiveImage('btn_logout')"><img src="btn_logout.gif" width="139" height="24" border="0" alt="Logout" name="btn_logout"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_changepassword')" onMouseout="InActiveImage('btn_changepassword')"><img src="btn_changepassword.gif" width="139" height="24" border="0" alt="Change Password" name="btn_changepassword"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_editmembership')" onMouseout="InActiveImage('btn_editmembership')"><img src="btn_editmembership.gif" width="139" height="24" border="0" alt="Edit Membership" name="btn_editmembership"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_memberonlyhome')" onMouseout="InActiveImage('btn_memberonlyhome')"><img src="btn_memberonlyhome.gif" width="139" height="24" border="0" alt="Member Only Home" name="btn_memberonlyhome"></a>
+<a href="" onMouseOver="ActiveOverImage('btn_uploadphotos')" onMouseout="InActiveImage('btn_uploadphotos')"><img src="btn_uploadphotos.gif" width="139" height="24" border="0" alt="Upload Photos" name="btn_uploadphotos"></a>
+
+</td></tr></table>

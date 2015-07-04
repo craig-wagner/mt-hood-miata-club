@@ -1,0 +1,90 @@
+@model EventIndexViewModel
+@{
+    ViewBag.Menu = "_MainMenu";
+    ViewBag.Title = "MHMC: Events";
+}
+@section MenuFooter
+{
+    <br />
+    <div align="center">
+        <a target="_blank" href="http://get.adobe.com/reader/">
+            <img src="/images/Adobe/get_adobe_reader.gif" style="border-width: 0px" alt="Get Adobe Reader" /></a></div>
+}
+<table class="border" style="width: 95%" align="center">
+    <tr>
+        <td class="note" align="center">
+            RSVPs are a must for ALL events.<br />
+            Send RSVP via e-mail to <a href="mailto:activities@mthoodmiata.org">activities@mthoodmiata.org</a>
+        </td>
+    </tr>
+</table>
+<p>
+    If you have never organized an event before, this is a great place to start.</p>
+<p>
+    <a href="/Event/Planning">View Planning a Miata Club Tour or Event</a></p>
+<p>
+    Now that you have the basics, use <a target="_blank" href="/Event/Checklist">this handy
+        checklist (pdf)</a> to make sure you haven't forgotten anything!&nbsp;  
+        <!-- <a target="_blank" href="/Event/Release for Miata Club Runs">Release form (pdf)</a> --> </p>
+
+<p>
+    View other clubs in the Pacific Northwest and beyond putting on cool events
+    too. You can find their information on the <a href="/Home/OtherClubs">Other Clubs</a>
+    page.</p>
+<p align="center">
+    @Html.ActionLink( "Upcoming", "Index", new { year = "" } )
+    @foreach( int year in @Model.EventYears.OrderByDescending( i => i ) )
+    {
+        <text> | @Html.ActionLink( year.ToString(), "Index", new { year = year } ) </text>
+    }
+</p>
+<p class="sectionHeader" align="center">
+    @if( DateTime.Now.Year == Model.EventsYear )
+    {
+        if( Model.ModelContainsPastEvents )
+        { 
+        <text>Past </text>
+        }
+        else
+        { 
+        <text>Upcoming </text>
+        }
+    }
+    @Model.EventsYear Events</p>
+<table class="border" style="width: 100%">
+    <tr>
+        <th width="20%">
+            Dates
+        </th>
+        <th width="45%">
+            Event Name
+        </th>
+        <th width="35%">
+            Planner(s)
+        </th>
+    </tr>
+    @foreach( EventInfo eventInfo in @Model.Events )
+    {
+        <tr>
+            <td style="vertical-align: top">
+                @if( eventInfo.StartDate == eventInfo.EndDate )
+                {
+                    @eventInfo.StartDate.ToString( "MMM d, yyyy" )
+                }
+                else
+                {
+                    <text>
+                    @eventInfo.StartDate.ToString( "MMM d" ) -<br />
+                    @eventInfo.EndDate.ToString( "MMM d, yyyy" )
+                    </text>
+                }
+            </td>
+            <td style="vertical-align: top">
+                @Html.ActionLink( eventInfo.EventName, "Detail", new { id = @eventInfo.EventId } )
+            </td>
+            <td style="vertical-align: top">
+                @eventInfo.Planner
+            </td>
+        </tr>
+    }
+</table>

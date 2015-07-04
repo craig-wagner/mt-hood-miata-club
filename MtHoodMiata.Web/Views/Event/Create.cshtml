@@ -1,0 +1,10 @@
+﻿@model EventInfo
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Add Event";
+}
+@using( Html.BeginForm() )
+{
+    @Html.ValidationSummary()
+    @Html.EditorForModel()
+}

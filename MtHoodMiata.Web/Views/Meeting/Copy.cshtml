@@ -1,0 +1,12 @@
+﻿@model MeetingInfo
+@{
+    ViewBag.Menu = "_MembersOnlyMenu";
+    ViewBag.Title = "MHMC: Meeting Copy";
+}
+<p class="attention">
+    You selected the Copy option. When you save this entry a new meeting will be created.</p>
+@using( Html.BeginForm() )
+{
+    @Html.ValidationSummary()
+    @Html.EditorForModel()
+}

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<MeetingInfo>
+@{
+    ViewBag.Menu = "_MainMenu";
+    ViewBag.Title = "MHMC: Meetings";
+}
+<table cellspacing="4" cellpadding="2" width="100%">
+    <tr valign="top">
+        <td width="11%">
+            <img height="70" src="/images/Signs/slow_child_play.gif" width="53" alt="Meetings" />
+        </td>
+        <td width="89%">
+            A dinner meeting is held at a different location on the second Thursday of every
+            month. Dinner and socializing is from 7:00-7:45pm followed by reports from the board
+            members from 7:45-9:00pm.
+            <p>
+                Members are welcome to suggest new meeting locations.</p>
+        </td>
+    </tr>
+</table>
+<p>
+    If you plan to attend the dinner meeting, please RSVP to <a href="mailto:vp@mthoodmiata.org?Subject=Dinner%20Meeting%20RSVP">
+        vp@mthoodmiata.org</a>
+</p>
+<table class="border" style="width: 100%">
+    @foreach( MeetingInfo meeting in Model.OrderBy( m => m.MeetingDate ) )
+    {
+        <tr>
+            <td width="45%" valign="top">
+                <span class="sectionHeader">@meeting.MeetingDate.ToString( "MMM d, yyyy" )</span><br />
+                @meeting.Location (<a target="_blank" href="@meeting.MapUrl">map</a>)<br />
+                @meeting.Address<br />
+                @meeting.City, @meeting.State @meeting.Zip<br />
+                @meeting.Phone
+            </td>
+            <td width="55%">
+                @Html.Raw( meeting.Notes )
+            </td>
+        </tr>
+    }
+</table>
